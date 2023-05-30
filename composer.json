@@ -1,0 +1,27 @@
+{
+    "name": "pulse/exception-bundle",
+    "description": "Exception handler for symfony project",
+    "type": "symfony-bundle",
+    "require": {
+        "symfony/dependency-injection": "^6.2 || ^6.1",
+        "symfony/config": "^6.2 || ^6.1",
+        "symfony/framework-bundle": "^6.2 || ^6.1 || ^5.4",
+        "symfony/http-kernel": "^6.2 || ^6.1 || ^5.4",
+        "lexik/jwt-authentication-bundle": "^2.19",
+        "symfony/security": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pulse\\ExceptionBundle\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Fetra Harinjatovo"
+        }
+    ],
+    "require-dev": {
+        "symfony/test-pack": "^1.1",
+        "symfony/var-dumper": "^6.2"
+    }
+}

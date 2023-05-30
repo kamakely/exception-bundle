@@ -1,0 +1,29 @@
+services:
+    _defaults:
+        autowire: true
+        # automatically registers your services as commands, event subscribers, etc.
+        autoconfigure: true
+        # this means you cannot fetch services directly from the container via $container->get()
+        # if you need to do this, you can override this setting on individual services
+        public: false
+    Pulse\ExceptionBundle\:
+        resource: '../../'
+        # you can exclude directories or files
+        # but if a service is unused, it's removed anyway
+        exclude: '../../{Entity,Repository,Tests}'
+
+    pos.base_service:
+        class: Pulse\ExceptionBundle\Service\BaseService
+        abstract: true
+        arguments: ['@service_container','@doctrine.orm.default_entity_manager','@logger']
+
+    Pulse\ExceptionBundle\Exception\PosExceptionRegistry:
+        arguments:
+            - !tagged pos.core_exception
+    Pulse\ExceptionBundle\Exception\Handler\Pulse\PosGeneralExceptionInterface: '@Pulse\ExceptionBundle\Exception\Handler\Pulse\PulseGeneraleExceptionHandler'
+
+    Pulse\ExceptionBundle\Exception\Handler\Pulse\PosGeneraleLoggerExceptionHandler:
+        decorates: 'Pulse\ExceptionBundle\Exception\Handler\Pulse\PulseGeneraleExceptionHandler'
+        arguments: ['@Pulse\ExceptionBundle\Exception\Handler\Pulse\PulseGeneraleLoggerExceptionHandler.inner', '@logger']
+        decoration_priority: 1
+        public: false
