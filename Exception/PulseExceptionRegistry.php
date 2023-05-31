@@ -3,6 +3,7 @@
 
 namespace Pulse\ExceptionBundle\Exception;
 
+
 class PulseExceptionRegistry
 {
     /**
@@ -15,14 +16,14 @@ class PulseExceptionRegistry
     }
 
     /**
-     * @param \Exception $exception
-     * @return AbstractPosException|PosExceptionInterface
+     * @param \Throwable $throwable
+     * @return AbstractPulseException|PulseExceptionInterface
      */
-    public function getExceptionHandler(\Exception $exception)
+    public function getExceptionHandler(\Throwable $throwable)
     {
         foreach($this->exceptionHandlers as $exceptionHandler) {
-            /** @var AbstractPosException $exceptionHandler **/
-            if($exceptionHandler->isMatchException($exception)) {
+            /** @var AbstractPulseException|PulseExceptionInterface $exceptionHandler **/
+            if($exceptionHandler->isMatchException($throwable)) {
                 return $exceptionHandler;
             }
         }

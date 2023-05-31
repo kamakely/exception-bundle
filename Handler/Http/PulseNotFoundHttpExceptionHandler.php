@@ -1,30 +1,27 @@
 <?php
 
-
 namespace Pulse\ExceptionBundle\Handler\Http;
 
-
-use Pulse\Bundle\CommunBundle\Utils\ConstantSrv;
 use Pulse\ExceptionBundle\Exception\AbstractPulseException;
 use Pulse\ExceptionBundle\Exception\PulseExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PulseNotFoundHttpExceptionHandler extends AbstractPulseException implements PulseExceptionInterface
 {
-    public function setData(\Exception $exception)
+    public function setData(\Throwable $throwable)
     {
         return array_merge(
             array(
-                'message' => $exception->getMessage(),
+                'message' => $throwable->getMessage(),
                 'http_message' => 'Not found',
                 'code' => 404,
-            ), $this->getMessageParts($exception)
+            ), $this->getMessageParts($throwable)
         );
     }
 
-    public function isMatchException(\Exception $exception)
+    public function isMatchException(\Throwable $throwable)
     {
-        return $exception instanceof NotFoundHttpException;
+        return $throwable instanceof NotFoundHttpException;
     }
 
 }

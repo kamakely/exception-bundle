@@ -24,26 +24,26 @@ class PulseGeneraleLoggerExceptionHandler implements PulseGeneralExceptionInterf
         $this->logger = $logger;
     }
     /**
-     * @param \Exception $exception
+     * @param \Throwable $throwable
      * @return array|string
      */
-    public function setData(\Exception $exception)
+    public function setData(\Throwable $throwable)
     {
         $this->logger->notice(" --- POSAPP: L'ERREUR SUIVANTE EST LEVÉE PAR POS ---");
-        $this->logger->error(sprintf('--- POSAPP: RAISON: %s', $exception->getMessage()));
-        $this->logger->error(sprintf('--- POSAPP: FILE: %s', $exception->getFile()));
-        $this->logger->error(sprintf('--- POSAPP: LINE: %s', $exception->getLine()));
-        $this->logger->error(sprintf('--- POSAPP: TRACE: %s', $exception->getTraceAsString()));
-        return $this->generalException->setData($exception);
+        $this->logger->error(sprintf('--- POSAPP: RAISON: %s', $throwable->getMessage()));
+        $this->logger->error(sprintf('--- POSAPP: FILE: %s', $throwable->getFile()));
+        $this->logger->error(sprintf('--- POSAPP: LINE: %s', $throwable->getLine()));
+        $this->logger->error(sprintf('--- POSAPP: TRACE: %s', $throwable->getTraceAsString()));
+        return $this->generalException->setData($throwable);
     }
 
     /**
-     * @param \Exception $exception
+     * @param \Throwable $exception
      * @return bool
      */
-    public function isMatchException(\Exception $exception)
+    public function isMatchException(\Throwable $throwable)
     {
-        return $exception instanceof PulseException;
+        return $throwable instanceof PulseException;
     }
 
 }

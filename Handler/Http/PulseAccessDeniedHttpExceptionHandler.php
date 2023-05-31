@@ -9,25 +9,25 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 class PulseAccessDeniedHttpExceptionHandler implements PulseExceptionInterface
 {
     /**
-     * @param \Exception $exception
+     * @param \Throwable $throwable
      * @return array
      */
-    public function setData(\Exception $exception)
+    public function setData(\Throwable $throwable)
     {
         return array(
-                'message' => $exception->getMessage(),
+                'message' => $throwable->getMessage(),
                 'http_message' => 'Action non autorisée',
                 'code' => 403
             );
     }
 
     /**
-     * @param \Exception $exception
+     * @param \Throwable $throwable
      * @return bool
      */
-    public function isMatchException(\Exception $exception)
+    public function isMatchException(\Throwable $throwable)
     {
-        return $exception instanceof AccessDeniedHttpException;
+        return $throwable instanceof AccessDeniedHttpException;
     }
 
 }

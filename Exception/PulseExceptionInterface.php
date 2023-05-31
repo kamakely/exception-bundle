@@ -7,14 +7,14 @@ namespace Pulse\ExceptionBundle\Exception;
 interface PulseExceptionInterface
 {
     /**
-     * @param \Exception $exception
+     * @param \Throwable $throwable
      * @return array
      */
-    public function setData(\Exception $exception);
+    public function setData(\Throwable $throwable);
 
     /**
-     * @param \Exception $exception
+     * @param \Throwable $throwable
      * @return bool
      */
-    public function isMatchException(\Exception $exception);
+    public function isMatchException(\Throwable $throwable);
 }

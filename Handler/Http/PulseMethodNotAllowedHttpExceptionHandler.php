@@ -11,20 +11,20 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class PulseMethodNotAllowedHttpExceptionHandler extends AbstractPulseException implements PulseExceptionInterface
 {
-    public function setData(\Exception $exception)
+    public function setData(\Throwable $throwable)
     {
         return array_merge(
             array(
-                'message' => $exception->getMessage(),
+                'message' => $throwable->getMessage(),
                 'http_message' => 'Method Not Allowed',
                 'code' => 402,
-            ), $this->getMessageParts($exception)
+            ), $this->getMessageParts($throwable)
         );
     }
 
-    public function isMatchException(\Exception $exception)
+    public function isMatchException(\Throwable $throwable)
     {
-        return $exception instanceof MethodNotAllowedHttpException;
+        return $throwable instanceof MethodNotAllowedHttpException;
     }
 
 }

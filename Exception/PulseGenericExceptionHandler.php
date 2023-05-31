@@ -3,26 +3,29 @@
 
 namespace Pulse\ExceptionBundle\Exception;
 
-
-use Pulse\Bundle\CommunBundle\Utils\ConstantSrv;
+use Pulse\ExceptionBundle\Code;
 
 class PulseGenericExceptionHandler implements PulseExceptionInterface
 {
-    public function setData(\Exception $exception)
+    /**
+     * @param \Throwable $throwable
+     * @return array
+     */
+    public function setData(\Throwable $throwable)
     {
-        $messageExeption = $exception->getMessage();
+        $messageExeption = $throwable->getMessage();
         return array(
             'message' => $messageExeption,
             'http_message' => 'Erreur interne',
-            'code' => ConstantSrv::CODE_INTERNAL_ERROR
+            'code' => Code::CODE_INTERNAL_ERROR
         );
     }
 
     /**
-     * @param \Exception $exception
+     * @param \Throwable $throwable
      * @return bool
      */
-    public function isMatchException(\Exception $exception)
+    public function isMatchException(\Throwable $throwable)
     {
         return false;
     }

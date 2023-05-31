@@ -11,13 +11,13 @@ use Pulse\ExceptionBundle\Exception\PulseExceptionInterface as ExceptionPulseExc
 class PulseGeneraleExceptionHandler implements ExceptionPulseExceptionInterface, PulseGeneralExceptionInterface
 {
     /**
-     * @param \Exception $exception
+     * @param \Throwable $exception
      * @return array|string
      */
-    public function setData(\Exception $exception)
+    public function setData(\Throwable $throwable)
     {
         return array(
-            'message' => $exception->getMessage(),
+            'message' => $throwable->getMessage(),
             'http_message' => 'Erreur interne',
             'code' => Code::CODE_INTERNAL_ERROR
         );
@@ -27,9 +27,9 @@ class PulseGeneraleExceptionHandler implements ExceptionPulseExceptionInterface,
      * @param \Exception $exception
      * @return bool
      */
-    public function isMatchException(\Exception $exception)
+    public function isMatchException(\Throwable $throwable)
     {
-        return $exception instanceof PulseException;
+        return $throwable instanceof PulseException;
     }
 
 }
