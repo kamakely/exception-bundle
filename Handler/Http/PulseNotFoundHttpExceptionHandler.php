@@ -17,7 +17,7 @@ class PulseNotFoundHttpExceptionHandler extends AbstractPulseException implement
             array(
                 'message' => $exception->getMessage(),
                 'http_message' => 'Not found',
-                'code' => ConstantSrv::CODE_DATA_NOTFOUND,
+                'code' => 404,
             ), $this->getMessageParts($exception)
         );
     }

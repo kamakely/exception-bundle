@@ -4,7 +4,7 @@ namespace Pulse\ExceptionBundle;
 use Pulse\ExceptionBundle\DependencyInjection\CoreExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Pulse\ExceptionBundle\Exception\PosExceptionInterface;
+use Pulse\ExceptionBundle\Exception\PulseExceptionInterface;
 
 class PulseExceptionBundle extends Bundle
 {
@@ -12,7 +12,7 @@ class PulseExceptionBundle extends Bundle
     {
         $container->registerExtension(new CoreExtension());
         parent::build($container);
-        $container->registerForAutoconfiguration(PosExceptionInterface::class)
-            ->addTag('pos.core_exception');
+        $container->registerForAutoconfiguration(PulseExceptionInterface::class)
+            ->addTag('pulse.core_exception');
     }
 }

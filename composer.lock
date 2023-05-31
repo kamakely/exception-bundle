@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ec9992d5db4a63be8b9c5edb8b23a87f",
+    "content-hash": "dce7e6d93954fb21f382e8886ece2965",
     "packages": [
         {
             "name": "lcobucci/clock",
@@ -2413,61 +2413,6 @@
                 }
             ],
             "time": "2023-03-14T15:00:05+00:00"
-        },
-        {
-            "name": "symfony/security",
-            "version": "2.0.6",
-            "target-dir": "Symfony/Component/Security",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/security.git",
-                "reference": "7f2e3570c00c06f45f9d960986f6096515f8b3f2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security/zipball/7f2e3570c00c06f45f9d960986f6096515f8b3f2",
-                "reference": "7f2e3570c00c06f45f9d960986f6096515f8b3f2",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2",
-                "symfony/event-dispatcher": ">=2.0",
-                "symfony/http-foundation": ">=2.0",
-                "symfony/http-kernel": ">=2.0"
-            },
-            "suggest": {
-                "symfony/class-loader": ">=2.0",
-                "symfony/finder": ">=2.0",
-                "symfony/form": ">=2.0",
-                "symfony/routing": ">=2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\Security": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                }
-            ],
-            "description": "Symfony Security Component",
-            "homepage": "http://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/security/tree/v2.0.6"
-            },
-            "abandoned": true,
-            "time": "2011-11-14T12:10:32+00:00"
         },
         {
             "name": "symfony/security-bundle",

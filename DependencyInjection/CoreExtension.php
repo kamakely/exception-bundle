@@ -24,25 +24,3 @@ class CoreExtension extends Extension
     }
 
 }
-
-
-
-//
-//class CoreExtension extends Extension implements PrependExtensionInterface
-//{
-//    public function load(array $configs, ContainerBuilder $container)
-//    {
-//        dump('ok');die;
-//        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-//
-//        $loader->load('services.yml');
-//        dump($configs);die;
-//    }
-//
-//    public function prepend(ContainerBuilder $container)
-//    {
-//        // TODO: Implement prepend() method.
-//    }
-//
-//
-//}

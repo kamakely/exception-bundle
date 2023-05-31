@@ -12,18 +12,17 @@ services:
         # but if a service is unused, it's removed anyway
         exclude: '../../{Entity,Repository,Tests}'
 
-    pos.base_service:
-        class: Pulse\ExceptionBundle\Service\BaseService
-        abstract: true
-        arguments: ['@service_container','@doctrine.orm.default_entity_manager','@logger']
-
-    Pulse\ExceptionBundle\Exception\PosExceptionRegistry:
+    Pulse\ExceptionBundle\Exception\PulseExceptionRegistry:
         arguments:
-            - !tagged pos.core_exception
-    Pulse\ExceptionBundle\Exception\Handler\Pulse\PosGeneralExceptionInterface: '@Pulse\ExceptionBundle\Exception\Handler\Pulse\PulseGeneraleExceptionHandler'
+            - !tagged pulse.core_exception
+    Pulse\ExceptionBundle\Handler\Pulse\PulseGeneralExceptionInterface: '@Pulse\ExceptionBundle\Handler\Pulse\PulseGeneraleExceptionHandler'
 
-    Pulse\ExceptionBundle\Exception\Handler\Pulse\PosGeneraleLoggerExceptionHandler:
-        decorates: 'Pulse\ExceptionBundle\Exception\Handler\Pulse\PulseGeneraleExceptionHandler'
-        arguments: ['@Pulse\ExceptionBundle\Exception\Handler\Pulse\PulseGeneraleLoggerExceptionHandler.inner', '@logger']
+    Pulse\ExceptionBundle\Handler\Pulse\PulseGeneraleLoggerExceptionHandler:
+        decorates: 'Pulse\ExceptionBundle\Handler\Pulse\PulseGeneraleExceptionHandler'
+        arguments: ['@Pulse\ExceptionBundle\Handler\Pulse\PulseGeneraleLoggerExceptionHandler.inner', '@logger']
         decoration_priority: 1
         public: false
+
+    Pulse\ExceptionBundle\Listener\PulseExceptionListener:
+        tags: 
+            - { name: kernel.event_listener, priority: 200}

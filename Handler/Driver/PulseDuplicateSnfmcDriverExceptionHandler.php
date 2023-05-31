@@ -4,7 +4,7 @@
 namespace Pulse\ExceptionBundle\Handler\Driver;
 
 use Doctrine\DBAL\Exception\DriverException;
-use Pulse\Bundle\CommunBundle\Utils\ConstantSrv;
+use Pulse\ExceptionBundle\Code;
 use Pulse\ExceptionBundle\Exception\PulseExceptionInterface;
 
 class PulseDuplicateSnfmcDriverExceptionHandler implements PulseExceptionInterface
@@ -19,7 +19,7 @@ class PulseDuplicateSnfmcDriverExceptionHandler implements PulseExceptionInterfa
         return array(
             'message'      => 'La plage que vous voulez insérée existe déjà',
             'http_message' => 'Action non aboutie',
-            'code' => ConstantSrv::CODE_INTERNAL_ERROR
+            'code' => Code::CODE_INTERNAL_ERROR
         );
     }
 

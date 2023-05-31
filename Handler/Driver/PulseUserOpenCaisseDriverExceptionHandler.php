@@ -5,7 +5,7 @@ namespace Pulse\ExceptionBundle\Handler\Driver;
 
 
 use Doctrine\DBAL\Exception\DriverException;
-use Pulse\Bundle\CommunBundle\Utils\ConstantSrv;
+use Pulse\ExceptionBundle\Code;
 use Pulse\ExceptionBundle\Exception\PulseExceptionInterface;
 
 class PulseUserOpenCaisseDriverExceptionHandler implements PulseExceptionInterface
@@ -20,7 +20,7 @@ class PulseUserOpenCaisseDriverExceptionHandler implements PulseExceptionInterfa
         return array(
             'message'      => 'Cet utilisateur a déjà une caisse ouverte',
             'http_message' => 'Action non aboutie',
-            'code'         => ConstantSrv::CODE_INTERNAL_ERROR
+            'code'         => Code::CODE_INTERNAL_ERROR
         );
     }
 

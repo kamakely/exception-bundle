@@ -17,7 +17,7 @@ class PulseBadRequestHttpExceptionHandler extends AbstractPulseException impleme
             array(
                 'message' => $exception->getMessage(),
                 'http_message' => 'Authentication failed',
-                'code' => ConstantSrv::CODE_BAD_REQUEST,
+                'code' => 400,
             ), $this->getMessageParts($exception)
         );
     }
