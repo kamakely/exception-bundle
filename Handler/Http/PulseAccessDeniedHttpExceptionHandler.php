@@ -12,7 +12,7 @@ class PulseAccessDeniedHttpExceptionHandler implements PulseExceptionInterface
      * @param \Throwable $throwable
      * @return array
      */
-    public function setData(\Throwable $throwable)
+    public function handleException(\Throwable $throwable)
     {
         return array(
                 'message' => $throwable->getMessage(),
@@ -25,7 +25,7 @@ class PulseAccessDeniedHttpExceptionHandler implements PulseExceptionInterface
      * @param \Throwable $throwable
      * @return bool
      */
-    public function isMatchException(\Throwable $throwable)
+    public function supportsException(\Throwable $throwable)
     {
         return $throwable instanceof AccessDeniedHttpException;
     }

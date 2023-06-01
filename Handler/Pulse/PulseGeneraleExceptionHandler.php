@@ -6,15 +6,15 @@ namespace Pulse\ExceptionBundle\Handler\Pulse;
 
 use Pulse\ExceptionBundle\Code;
 use Pulse\ExceptionBundle\Exception\PulseException;
-use Pulse\ExceptionBundle\Exception\PulseExceptionInterface as ExceptionPulseExceptionInterface;
+use Pulse\ExceptionBundle\Exception\PulseExceptionInterface;
 
-class PulseGeneraleExceptionHandler implements ExceptionPulseExceptionInterface, PulseGeneralExceptionInterface
+class PulseGeneraleExceptionHandler implements PulseGeneralExceptionInterface, PulseExceptionInterface
 {
     /**
      * @param \Throwable $exception
-     * @return array|string
+     * @return array
      */
-    public function setData(\Throwable $throwable)
+    public function handleException(\Throwable $throwable): array
     {
         return array(
             'message' => $throwable->getMessage(),
@@ -27,7 +27,7 @@ class PulseGeneraleExceptionHandler implements ExceptionPulseExceptionInterface,
      * @param \Exception $exception
      * @return bool
      */
-    public function isMatchException(\Throwable $throwable)
+    public function supportsException(\Throwable $throwable): bool
     {
         return $throwable instanceof PulseException;
     }

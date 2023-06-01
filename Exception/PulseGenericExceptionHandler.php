@@ -11,7 +11,7 @@ class PulseGenericExceptionHandler implements PulseExceptionInterface
      * @param \Throwable $throwable
      * @return array
      */
-    public function setData(\Throwable $throwable)
+    public function handleException(\Throwable $throwable)
     {
         $messageExeption = $throwable->getMessage();
         return array(
@@ -25,7 +25,7 @@ class PulseGenericExceptionHandler implements PulseExceptionInterface
      * @param \Throwable $throwable
      * @return bool
      */
-    public function isMatchException(\Throwable $throwable)
+    public function supportsException(\Throwable $throwable)
     {
         return false;
     }

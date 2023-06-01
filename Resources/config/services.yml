@@ -14,12 +14,12 @@ services:
 
     Pulse\ExceptionBundle\Exception\PulseExceptionRegistry:
         arguments:
-            - !tagged pulse.core_exception
+            - !tagged pulse.exception
     Pulse\ExceptionBundle\Handler\Pulse\PulseGeneralExceptionInterface: '@Pulse\ExceptionBundle\Handler\Pulse\PulseGeneraleExceptionHandler'
 
     Pulse\ExceptionBundle\Handler\Pulse\PulseGeneraleLoggerExceptionHandler:
         decorates: 'Pulse\ExceptionBundle\Handler\Pulse\PulseGeneraleExceptionHandler'
-        arguments: ['@Pulse\ExceptionBundle\Handler\Pulse\PulseGeneraleLoggerExceptionHandler.inner', '@logger']
+        arguments: ['@.inner', '@logger']
         decoration_priority: 1
         public: false
 

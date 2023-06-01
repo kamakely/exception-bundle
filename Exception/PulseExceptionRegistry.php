@@ -23,7 +23,7 @@ class PulseExceptionRegistry
     {
         foreach($this->exceptionHandlers as $exceptionHandler) {
             /** @var AbstractPulseException|PulseExceptionInterface $exceptionHandler **/
-            if($exceptionHandler->isMatchException($throwable)) {
+            if($exceptionHandler->supportsException($throwable)) {
                 return $exceptionHandler;
             }
         }

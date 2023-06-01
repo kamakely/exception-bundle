@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class PulseMethodNotAllowedHttpExceptionHandler extends AbstractPulseException implements PulseExceptionInterface
 {
-    public function setData(\Throwable $throwable)
+    public function handleException(\Throwable $throwable)
     {
         return array_merge(
             array(
@@ -22,7 +22,7 @@ class PulseMethodNotAllowedHttpExceptionHandler extends AbstractPulseException i
         );
     }
 
-    public function isMatchException(\Throwable $throwable)
+    public function supportsException(\Throwable $throwable)
     {
         return $throwable instanceof MethodNotAllowedHttpException;
     }

@@ -13,6 +13,6 @@ class PulseExceptionBundle extends Bundle
         $container->registerExtension(new CoreExtension());
         parent::build($container);
         $container->registerForAutoconfiguration(PulseExceptionInterface::class)
-            ->addTag('pulse.core_exception');
+            ->addTag('pulse.exception');
     }
 }

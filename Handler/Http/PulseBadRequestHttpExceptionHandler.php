@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class PulseBadRequestHttpExceptionHandler extends AbstractPulseException implements PulseExceptionInterface
 {
-    public function setData(\Throwable $throwable)
+    public function handleException(\Throwable $throwable)
     {
         return array_merge(
             array(
@@ -21,7 +21,7 @@ class PulseBadRequestHttpExceptionHandler extends AbstractPulseException impleme
         );
     }
 
-    public function isMatchException(\Throwable $throwable)
+    public function supportsException(\Throwable $throwable)
     {
         return $throwable instanceof BadRequestHttpException;
     }
