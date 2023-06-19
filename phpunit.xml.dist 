@@ -1,0 +1,7 @@
+<!-- phpunit.xml.dist -->
+<phpunit>
+    <php>
+        <!-- Add the KERNEL_CLASS environment variable -->
+        <env name="KERNEL_CLASS" value="App\Kernel" />
+    </php>
+</phpunit>
