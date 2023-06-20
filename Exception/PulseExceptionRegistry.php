@@ -1,8 +1,9 @@
 <?php
 
-
 namespace Pulse\ExceptionBundle\Exception;
 
+use Pulse\ExceptionBundle\Handler\PulseLogicExceptionHandler;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 
 class PulseExceptionRegistry
 {
@@ -21,12 +22,20 @@ class PulseExceptionRegistry
      */
     public function getExceptionHandler(\Throwable $throwable)
     {
-        foreach($this->exceptionHandlers as $exceptionHandler) {
-            /** @var AbstractPulseException|PulseExceptionInterface $exceptionHandler **/
-            if($exceptionHandler->supportsException($throwable)) {
-                return $exceptionHandler;
+        try {
+            foreach($this->exceptionHandlers as $exceptionHandler) {
+                if(!$exceptionHandler instanceof PulseExceptionInterface) {
+                    throw new PulseException(sprintf('Handler %s must implement the %s interface', get_class($exceptionHandler), PulseExceptionInterface::class));
+                }
+                /** @var AbstractPulseException|PulseExceptionInterface $exceptionHandler **/
+                if($exceptionHandler->supportsException($throwable)) {
+                    return $exceptionHandler;
+                }
             }
+        } catch(\Exception $exception) {
+            return new PulseLogicExceptionHandler($exception->getMessage());
         }
+
 
         return new PulseGenericExceptionHandler();
     }

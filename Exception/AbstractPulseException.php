@@ -1,12 +1,9 @@
 <?php
 
-
 namespace Pulse\ExceptionBundle\Exception;
-
 
 abstract class AbstractPulseException implements PulseExceptionInterface
 {
-
     /**
      * @param \Exception $exception
      *
@@ -19,7 +16,7 @@ abstract class AbstractPulseException implements PulseExceptionInterface
             'message' => $message,
         );
         if (strpos($message, '|') !== false) {
-            list($title, $message,) = explode('|', $message);
+            list($title, $message, ) = explode('|', $message);
             $customResponse['message'] = $message;
             $customResponse['title'] = $title;
         }

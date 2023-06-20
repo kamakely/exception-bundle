@@ -1,14 +1,17 @@
 <?php
 
-namespace Pulse\ExceptionBundle\Handler\Http;
+namespace Pulse\ExceptionBundle\Handler;
 
 use Pulse\ExceptionBundle\Exception\PulseExceptionInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
-class PulseAccessDeniedHttpExceptionHandler implements PulseExceptionInterface
+class PulseLogicExceptionHandler implements PulseExceptionInterface
 {
+    public function __construct(private string $message)
+    {
+
+    }
     /**
      * @param \Throwable $throwable
      * @return array
@@ -16,9 +19,9 @@ class PulseAccessDeniedHttpExceptionHandler implements PulseExceptionInterface
     public function handleException(\Throwable $throwable): Response
     {
         return new JsonResponse(array(
-                'message' => $throwable->getMessage(),
-                'http_message' => 'Action non autorisée',
-                'code' => 403
+                'message' => $this->message,
+                'http_message' => 'Logical Exception',
+                'code' => 400
             ));
     }
 
@@ -28,7 +31,7 @@ class PulseAccessDeniedHttpExceptionHandler implements PulseExceptionInterface
      */
     public function supportsException(\Throwable $throwable): bool
     {
-        return $throwable instanceof AccessDeniedHttpException;
+        return false;
     }
 
 }

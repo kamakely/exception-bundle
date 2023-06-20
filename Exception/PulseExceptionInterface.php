@@ -1,8 +1,8 @@
 <?php
 
-
 namespace Pulse\ExceptionBundle\Exception;
 
+use Symfony\Component\HttpFoundation\Response;
 
 interface PulseExceptionInterface
 {
@@ -10,11 +10,11 @@ interface PulseExceptionInterface
      * @param \Throwable $throwable
      * @return array
      */
-    public function handleException(\Throwable $throwable);
+    public function handleException(\Throwable $throwable): Response;
 
     /**
      * @param \Throwable $throwable
      * @return bool
      */
-    public function supportsException(\Throwable $throwable);
+    public function supportsException(\Throwable $throwable): bool;
 }

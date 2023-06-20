@@ -1,15 +1,13 @@
 <?php
 
-
 namespace Pulse\ExceptionBundle\Handler\Pulse;
-
 
 use Psr\Log\LoggerInterface;
 use Pulse\ExceptionBundle\Exception\PulseException;
+use Symfony\Component\HttpFoundation\Response;
 
 class PulseGeneraleLoggerExceptionHandler implements PulseGeneralExceptionInterface
 {
-    
     /**
      * @var LoggerInterface $logger
      */
@@ -22,7 +20,7 @@ class PulseGeneraleLoggerExceptionHandler implements PulseGeneralExceptionInterf
      * @param \Throwable $throwable
      * @return array|string
      */
-    public function handleException(\Throwable $throwable): array
+    public function handleException(\Throwable $throwable): Response
     {
         $this->logger->notice(" --- PULSE: L'ERREUR SUIVANTE EST LEVÉE PAR POS ---");
         $this->logger->error(sprintf('--- PULSE: RAISON: %s', $throwable->getMessage()));
@@ -32,7 +30,7 @@ class PulseGeneraleLoggerExceptionHandler implements PulseGeneralExceptionInterf
         return $this->pulseGeneralExceptionInterface->handleException($throwable);
     }
 
-    public function supportsException(\Throwable $throwable)
+    public function supportsException(\Throwable $throwable): bool
     {
         return $throwable instanceof PulseException;
     }
