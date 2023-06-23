@@ -12,7 +12,10 @@ class PulseLogicHandlerExceptionPass implements CompilerPassInterface
 
     public function process(ContainerBuilder $container)
     {
-        $definition = $container->getDefinition(PulseLogicExceptionHandler::class);
-        $definition->addArgument(self::MESSAGE);
+        if($container->hasDefinition(PulseLogicExceptionHandler::class)) {
+            $definition = $container->getDefinition(PulseLogicExceptionHandler::class);
+            $definition->addArgument(self::MESSAGE);
+        }
+        
     }
 }

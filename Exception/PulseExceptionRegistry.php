@@ -2,8 +2,10 @@
 
 namespace Pulse\ExceptionBundle\Exception;
 
+use Pulse\ExceptionBundle\FormatResponse\FormatResponseCheckerInterface;
+use Pulse\ExceptionBundle\FormatResponse\HtmlFormatResponse;
+use Pulse\ExceptionBundle\FormatResponse\JsonFormatResponse;
 use Pulse\ExceptionBundle\Handler\PulseLogicExceptionHandler;
-use Symfony\Component\HttpKernel\Attribute\Cache;
 
 class PulseExceptionRegistry
 {
@@ -22,6 +24,7 @@ class PulseExceptionRegistry
      */
     public function getExceptionHandler(\Throwable $throwable)
     {
+        $handler = new PulseGenericExceptionHandler();
         try {
             foreach($this->exceptionHandlers as $exceptionHandler) {
                 if(!$exceptionHandler instanceof PulseExceptionInterface) {
@@ -29,6 +32,9 @@ class PulseExceptionRegistry
                 }
                 /** @var AbstractPulseException|PulseExceptionInterface $exceptionHandler **/
                 if($exceptionHandler->supportsException($throwable)) {
+                    if ($exceptionHandler instanceof FormatResponseCheckerInterface) {
+                        $exceptionHandler->setFormat(new HtmlFormatResponse());
+                    }
                     return $exceptionHandler;
                 }
             }
@@ -36,7 +42,6 @@ class PulseExceptionRegistry
             return new PulseLogicExceptionHandler($exception->getMessage());
         }
 
-
-        return new PulseGenericExceptionHandler();
+        return $handler;
     }
 }
