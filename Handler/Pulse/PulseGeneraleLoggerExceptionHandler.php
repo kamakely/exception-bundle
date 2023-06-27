@@ -17,7 +17,7 @@ class PulseGeneraleLoggerExceptionHandler implements PulseGeneralExceptionInterf
         $this->logger = $logger;
     }
     /**
-     * @param \Throwable $throwable
+     * @param  \Throwable $throwable
      * @return array|string
      */
     public function handleException(\Throwable $throwable): Response

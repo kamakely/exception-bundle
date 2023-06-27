@@ -13,20 +13,22 @@ class PulseLogicExceptionHandler implements PulseExceptionInterface
 
     }
     /**
-     * @param \Throwable $throwable
+     * @param  \Throwable $throwable
      * @return array
      */
     public function handleException(\Throwable $throwable): Response
     {
-        return new JsonResponse(array(
+        return new JsonResponse(
+            array(
                 'message' => $this->message,
                 'http_message' => 'Logical Exception',
                 'code' => 400
-            ));
+            )
+        );
     }
 
     /**
-     * @param \Throwable $throwable
+     * @param  \Throwable $throwable
      * @return bool
      */
     public function supportsException(\Throwable $throwable): bool

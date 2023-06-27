@@ -12,14 +12,16 @@ class PulseBadRequestHttpExceptionHandler extends AbstractPulseException impleme
 {
     public function handleException(\Throwable $throwable): Response
     {
-        return new JsonResponse(array_merge(
-            array(
+        return new JsonResponse(
+            array_merge(
+                array(
                 'message' => $throwable->getMessage(),
                 'http_message' => 'Authentication failed',
                 'code' => 400,
-            ),
-            $this->getMessageParts($throwable)
-        ));
+                ),
+                $this->getMessageParts($throwable)
+            )
+        );
     }
 
     public function supportsException(\Throwable $throwable): bool

@@ -18,14 +18,16 @@ class PulseNotFoundHttpExceptionHandler extends AbstractPulseException implement
     }
     public function handleException(\Throwable $throwable): Response
     {
-        return $this->formatResponseInterface->set(array_merge(
-            array(
+        return $this->formatResponseInterface->set(
+            array_merge(
+                array(
                 'message' => $throwable->getMessage(),
                 'http_message' => 'Not found',
                 'code' => 404,
-            ),
-            $this->getMessageParts($throwable)
-        ));
+                ),
+                $this->getMessageParts($throwable)
+            )
+        );
     }
 
     public function supportsException(\Throwable $throwable): bool
@@ -34,7 +36,7 @@ class PulseNotFoundHttpExceptionHandler extends AbstractPulseException implement
     }
 
     /**
-     * @var string $format
+     * @var    string $format
      * @return bool
      */
     public function format(array $format): bool

@@ -32,18 +32,20 @@ class PulseRegistryTest extends KernelTestCase
 class Custom implements PulseExceptionInterface
 {
     /**
-     * @param \Exception $exception
+     * @param  \Exception $exception
      * @return array
      */
     public function handleException(\Throwable $exception): Response
     {
-        return new JsonResponse([
+        return new JsonResponse(
+            [
             "message" => "custom",
-        ]);
+            ]
+        );
     }
 
     /**
-     * @param \Exception $exception
+     * @param  \Exception $exception
      * @return bool
      */
     public function supportsException(\Throwable $exception): bool

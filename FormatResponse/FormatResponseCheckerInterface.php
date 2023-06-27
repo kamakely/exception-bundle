@@ -7,7 +7,7 @@ interface FormatResponseCheckerInterface
 {
     
     /**
-     * @var array $data
+     * @var    array $data
      * @return bool
      */
     public function format(array $format): bool;

@@ -19,7 +19,7 @@ class PulseExceptionRegistry
     }
 
     /**
-     * @param \Throwable $throwable
+     * @param  \Throwable $throwable
      * @return AbstractPulseException|PulseExceptionInterface
      */
     public function getExceptionHandler(\Throwable $throwable)
@@ -30,12 +30,12 @@ class PulseExceptionRegistry
                 if(!$exceptionHandler instanceof PulseExceptionInterface) {
                     throw new PulseException(sprintf('Handler %s must implement the %s interface', get_class($exceptionHandler), PulseExceptionInterface::class));
                 }
-                /** @var AbstractPulseException|PulseExceptionInterface $exceptionHandler **/
+
                 if($exceptionHandler->supportsException($throwable)) {
                     if ($exceptionHandler instanceof FormatResponseCheckerInterface) {
                         $exceptionHandler->setFormat(new HtmlFormatResponse());
                     }
-                    return $exceptionHandler;
+                    $handler = $exceptionHandler;
                 }
             }
         } catch(\Exception $exception) {

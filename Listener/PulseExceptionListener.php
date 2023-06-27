@@ -16,9 +16,6 @@ class PulseExceptionListener
     {
         $exception = $exceptionEvent->getThrowable();
         $handler = $this->pulseExceptionRegistry->getExceptionHandler($exception);
-        /**
-         * @var Response $response
-         */
         $response = $handler->handleException($exception);
         $exceptionEvent->setResponse($response);
     }

@@ -2,7 +2,6 @@
 
 namespace Pulse\ExceptionBundle\FormatResponse;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class HtmlFormatResponse implements FormatResponseInterface
@@ -13,7 +12,7 @@ class HtmlFormatResponse implements FormatResponseInterface
     }
     
     /**
-     * @var array $data
+     * @var    array $data
      * @return 
      */
     public function set(array $data): Response
@@ -22,7 +21,7 @@ class HtmlFormatResponse implements FormatResponseInterface
     }
 
     /**
-     * @var string $format
+     * @var    string $format
      * @return bool
      */
     public function format(string $format): bool

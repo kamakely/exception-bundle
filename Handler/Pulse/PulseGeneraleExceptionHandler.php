@@ -11,20 +11,22 @@ use Symfony\Component\HttpFoundation\Response;
 class PulseGeneraleExceptionHandler implements PulseGeneralExceptionInterface, PulseExceptionInterface
 {
     /**
-     * @param \Throwable $exception
+     * @param  \Throwable $exception
      * @return array
      */
     public function handleException(\Throwable $throwable): Response
     {
-        return new JsonResponse(array(
+        return new JsonResponse(
+            array(
             'message' => $throwable->getMessage(),
             'http_message' => 'Erreur interne',
             'code' => Code::CODE_INTERNAL_ERROR
-        ));
+            )
+        );
     }
 
     /**
-     * @param \Exception $exception
+     * @param  \Exception $exception
      * @return bool
      */
     public function supportsException(\Throwable $throwable): bool
