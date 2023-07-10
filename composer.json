@@ -3,11 +3,10 @@
     "description": "Exception handler for symfony project",
     "type": "symfony-bundle",
     "require": {
-        "symfony/dependency-injection": "^6.2 || ^6.1",
-        "symfony/config": "^6.2 || ^6.1",
-        "symfony/framework-bundle": "^6.2 || ^6.1 || ^5.4",
-        "symfony/http-kernel": "^6.2 || ^6.1 || ^5.4",
-        "lexik/jwt-authentication-bundle": "^2.19"
+        "symfony/dependency-injection": "6.2.* || 6.1.* || 5.4.* || 4.4.*",
+        "symfony/config": "6.2.* || 6.1.* || 5.4.* || 4.4.*",
+        "symfony/framework-bundle": "6.2.* || 6.1.* || 5.4.* || 4.4.*",
+        "symfony/http-kernel": "6.2.* || 6.1.* || 5.4.* || 4.4.*"
     },
     "autoload": {
         "psr-4": {

@@ -4,15 +4,16 @@ namespace Pulse\ExceptionBundle\Handler\Pulse;
 
 use Psr\Log\LoggerInterface;
 use Pulse\ExceptionBundle\Exception\PulseException;
+use Pulse\ExceptionBundle\Exception\PulseExceptionInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class PulseGeneraleLoggerExceptionHandler implements PulseGeneralExceptionInterface
+class PulseGeneraleLoggerExceptionHandler implements PulseExceptionInterface
 {
     /**
      * @var LoggerInterface $logger
      */
     private $logger;
-    public function __construct(private PulseGeneralExceptionInterface $pulseGeneralExceptionInterface, LoggerInterface $logger)
+    public function __construct(private PulseExceptionInterface $pulseExceptionInterface, LoggerInterface $logger)
     {
         $this->logger = $logger;
     }
@@ -27,7 +28,7 @@ class PulseGeneraleLoggerExceptionHandler implements PulseGeneralExceptionInterf
         $this->logger->error(sprintf('--- PULSE: FILE: %s', $throwable->getFile()));
         $this->logger->error(sprintf('--- PULSE: LINE: %s', $throwable->getLine()));
         $this->logger->error(sprintf('--- PULSE: TRACE: %s', $throwable->getTraceAsString()));
-        return $this->pulseGeneralExceptionInterface->handleException($throwable);
+        return $this->pulseExceptionInterface->handleException($throwable);
     }
 
     public function supportsException(\Throwable $throwable): bool

@@ -19,7 +19,7 @@ class PulseGenericExceptionHandler implements PulseExceptionInterface
             array(
             'message' => $messageExeption,
             'http_message' => 'Erreur interne',
-            'code' => Code::CODE_INTERNAL_ERROR
+            'code' => Response::HTTP_INTERNAL_SERVER_ERROR
             )
         );
     }

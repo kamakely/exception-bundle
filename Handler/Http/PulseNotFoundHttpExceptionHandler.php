@@ -6,7 +6,6 @@ use Pulse\ExceptionBundle\Exception\AbstractPulseException;
 use Pulse\ExceptionBundle\Exception\PulseExceptionInterface;
 use Pulse\ExceptionBundle\FormatResponse\FormatResponseCheckerInterface;
 use Pulse\ExceptionBundle\FormatResponse\FormatResponseInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -23,7 +22,7 @@ class PulseNotFoundHttpExceptionHandler extends AbstractPulseException implement
                 array(
                 'message' => $throwable->getMessage(),
                 'http_message' => 'Not found',
-                'code' => 404,
+                'code' => Response::HTTP_NOT_FOUND,
                 ),
                 $this->getMessageParts($throwable)
             )

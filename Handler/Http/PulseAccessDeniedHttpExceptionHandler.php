@@ -18,8 +18,8 @@ class PulseAccessDeniedHttpExceptionHandler implements PulseExceptionInterface
         return new JsonResponse(
             array(
                 'message' => $throwable->getMessage(),
-                'http_message' => 'Action non autorisée',
-                'code' => 403
+                'http_message' => 'Forbidden',
+                'code' => Response::HTTP_FORBIDDEN
             )
         );
     }

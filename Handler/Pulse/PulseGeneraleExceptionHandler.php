@@ -8,7 +8,7 @@ use Pulse\ExceptionBundle\Exception\PulseExceptionInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class PulseGeneraleExceptionHandler implements PulseGeneralExceptionInterface, PulseExceptionInterface
+class PulseGeneraleExceptionHandler implements PulseExceptionInterface
 {
     /**
      * @param  \Throwable $exception
@@ -20,7 +20,7 @@ class PulseGeneraleExceptionHandler implements PulseGeneralExceptionInterface, P
             array(
             'message' => $throwable->getMessage(),
             'http_message' => 'Erreur interne',
-            'code' => Code::CODE_INTERNAL_ERROR
+            'code' => Response::HTTP_INTERNAL_SERVER_ERROR
             )
         );
     }

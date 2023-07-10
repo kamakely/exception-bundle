@@ -17,7 +17,7 @@ class HtmlFormatResponse implements FormatResponseInterface
      */
     public function set(array $data): Response
     {
-        return new Response('ok');
+        return new Response('error');
     }
 
     /**

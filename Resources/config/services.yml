@@ -15,8 +15,7 @@ services:
     Pulse\ExceptionBundle\Exception\PulseExceptionRegistry:
         arguments:
             - !tagged pulse.exception
-    Pulse\ExceptionBundle\Handler\Pulse\PulseGeneralExceptionInterface: '@Pulse\ExceptionBundle\Handler\Pulse\PulseGeneraleExceptionHandler'
-
+    
     Pulse\ExceptionBundle\Handler\Pulse\PulseGeneraleLoggerExceptionHandler:
         decorates: 'Pulse\ExceptionBundle\Handler\Pulse\PulseGeneraleExceptionHandler'
         arguments: ['@.inner', '@logger']

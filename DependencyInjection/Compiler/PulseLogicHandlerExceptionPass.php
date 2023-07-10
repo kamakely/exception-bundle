@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class PulseLogicHandlerExceptionPass implements CompilerPassInterface
 {
-    public const MESSAGE = 'Logica Exception';
+    public const MESSAGE = 'Logical Exception';
 
     public function process(ContainerBuilder $container)
     {

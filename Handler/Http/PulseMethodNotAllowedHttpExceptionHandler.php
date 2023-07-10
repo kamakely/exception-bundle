@@ -18,7 +18,7 @@ class PulseMethodNotAllowedHttpExceptionHandler extends AbstractPulseException i
                 array(
                 'message' => $throwable->getMessage(),
                 'http_message' => 'Method Not Allowed',
-                'code' => 402,
+                'code' => Response::HTTP_METHOD_NOT_ALLOWED,
                 ),
                 $this->getMessageParts($throwable)
             )

@@ -33,7 +33,7 @@ class PulseExceptionRegistry
 
                 if($exceptionHandler->supportsException($throwable)) {
                     if ($exceptionHandler instanceof FormatResponseCheckerInterface) {
-                        $exceptionHandler->setFormat(new HtmlFormatResponse());
+                        $exceptionHandler->setFormat(new JsonFormatResponse());
                     }
                     $handler = $exceptionHandler;
                 }
