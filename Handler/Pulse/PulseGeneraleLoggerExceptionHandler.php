@@ -24,7 +24,7 @@ class PulseGeneraleLoggerExceptionHandler implements PulseExceptionInterface
     public function handleException(\Throwable $throwable): Response
     {
         $this->logger->notice(" --- PULSE: L'ERREUR SUIVANTE EST LEVÉE PAR POS ---");
-        $this->logger->error(sprintf('--- PULSE: RAISON: %s', $throwable->getMessage()));
+        $this->logger->error(sprintf('--- PULSE: CAUSE: %s', $throwable->getMessage()));
         $this->logger->error(sprintf('--- PULSE: FILE: %s', $throwable->getFile()));
         $this->logger->error(sprintf('--- PULSE: LINE: %s', $throwable->getLine()));
         $this->logger->error(sprintf('--- PULSE: TRACE: %s', $throwable->getTraceAsString()));

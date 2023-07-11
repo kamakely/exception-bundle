@@ -1,23 +1,19 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fetra
- * Date: 8/22/22
- * Time: 2:06 PM.
- */
 
 namespace Pulse\ExceptionBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-class CoreExtension extends Extension
+class PulseExceptionExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+        $config = $this->processConfiguration(new Configuration(), $configs);
+        $container->setParameter('pulse_exception.debug', $config['debug']);
     }
 }
