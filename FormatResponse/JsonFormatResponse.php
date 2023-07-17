@@ -12,7 +12,7 @@ class JsonFormatResponse implements FormatResponseInterface
      * @var    array $data
      * @return 
      */
-    public function set(array $data): Response
+    public function render(array $data): Response
     {
         return new JsonResponse($data);
     }
@@ -21,8 +21,9 @@ class JsonFormatResponse implements FormatResponseInterface
      * @var    string $format
      * @return bool
      */
-    public function format(string $format): bool
+    public function supportsFormat(string $format): bool
     {
         return $format === 'json';
     }
+
 }

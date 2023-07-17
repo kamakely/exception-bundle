@@ -17,7 +17,7 @@ class PulseNotFoundHttpExceptionHandler extends AbstractPulseException implement
     }
     public function handleException(\Throwable $throwable): Response
     {
-        return $this->formatResponseInterface->set(
+        return $this->formatResponseInterface->render(
             array_merge(
                 array(
                 'message' => $throwable->getMessage(),

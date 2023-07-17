@@ -10,12 +10,12 @@ interface FormatResponseInterface
      * @var    array $data
      * @return 
      */
-    public function set(array $data): Response;
+    public function render(array $data): Response;
 
     /**
      * @var    string $format
      * @return bool
      */
-    public function format(string $format): bool;
+    public function supportsFormat(string $format): bool;
 
 }

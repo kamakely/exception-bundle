@@ -14,7 +14,7 @@ services:
 
     Pulse\ExceptionBundle\Exception\PulseExceptionRegistry:
         arguments:
-            - !tagged pulse.exception
+            - !tagged pulse_exception.handler
     
     Pulse\ExceptionBundle\Handler\Pulse\PulseGeneraleLoggerExceptionHandler:
         decorates: 'Pulse\ExceptionBundle\Handler\Pulse\PulseGeneraleExceptionHandler'
@@ -25,3 +25,7 @@ services:
     Pulse\ExceptionBundle\Listener\PulseExceptionListener:
         tags: 
             - { name: kernel.event_listener, priority: 200}
+
+    Pulse\ExceptionBundle\Listener\FormatRequestListener:
+        tags: 
+            - { name: kernel.event_listener, priority: 300}

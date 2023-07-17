@@ -3,12 +3,13 @@
 namespace Pulse\ExceptionBundle\Listener;
 
 use Pulse\ExceptionBundle\Exception\PulseExceptionRegistry;
+use Pulse\ExceptionBundle\FormatResponse\FormatResponseManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 
 class PulseExceptionListener
 {
-    public function __construct(private PulseExceptionRegistry $pulseExceptionRegistry, private string $debug)
+    public function __construct(private PulseExceptionRegistry $pulseExceptionRegistry, private FormatResponseManager $formatResponseManager, private string $debug)
     {
 
     }
@@ -17,8 +18,11 @@ class PulseExceptionListener
         if($this->debug) {
             return;
         }
+        
+        $request = $exceptionEvent->getRequest();
         $exception = $exceptionEvent->getThrowable();
-        $handler = $this->pulseExceptionRegistry->getExceptionHandler($exception);
+        $this->pulseExceptionRegistry->setFormatManager($this->formatResponseManager);
+        $handler = $this->pulseExceptionRegistry->getExceptionHandler($exception, $request);
         $response = $handler->handleException($exception);
         $exceptionEvent->setResponse($response);
     }

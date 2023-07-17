@@ -15,7 +15,7 @@ class PulseListenerExceptionPass implements CompilerPassInterface
         
         if($container->hasParameter('pulse_exception.debug')) {
             $definition = $container->getDefinition(PulseExceptionListener::class);
-            $definition->setArgument(1, $container->getParameter('pulse_exception.debug'));
+            $definition->setArgument(2, $container->getParameter('pulse_exception.debug'));
         }
 
     }
