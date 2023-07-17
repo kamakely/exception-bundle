@@ -3,9 +3,7 @@
 namespace Pulse\ExceptionBundle\Exception;
 
 use Pulse\ExceptionBundle\FormatResponse\FormatResponseCheckerInterface;
-use Pulse\ExceptionBundle\FormatResponse\FormatResponseInterface;
 use Pulse\ExceptionBundle\FormatResponse\FormatResponseManager;
-use Pulse\ExceptionBundle\FormatResponse\JsonFormatResponse;
 use Pulse\ExceptionBundle\Handler\PulseLogicExceptionHandler;
 use Symfony\Component\HttpFoundation\Request;
 

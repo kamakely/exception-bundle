@@ -2,7 +2,6 @@
 
 namespace Pulse\ExceptionBundle\Exception;
 
-use Pulse\ExceptionBundle\Code;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 

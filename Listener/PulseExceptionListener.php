@@ -4,7 +4,6 @@ namespace Pulse\ExceptionBundle\Listener;
 
 use Pulse\ExceptionBundle\Exception\PulseExceptionRegistry;
 use Pulse\ExceptionBundle\FormatResponse\FormatResponseManager;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 
 class PulseExceptionListener
