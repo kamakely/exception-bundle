@@ -1,5 +1,5 @@
 {
-    "name": "pulse/exception-bundle",
+    "name": "tounaf/exception-bundle",
     "description": "Exception handler for symfony project",
     "type": "symfony-bundle",
     "require": {
@@ -20,7 +20,8 @@
     },
     "authors": [
         {
-            "name": "Fetra Harinjatovo"
+            "name": "Fetra Harinjatovo",
+            "email": "harinjatovo.fetra@gmail.com"
         }
     ],
     "require-dev": {
