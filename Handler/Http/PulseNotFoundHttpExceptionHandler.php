@@ -1,15 +1,15 @@
 <?php
 
-namespace Pulse\ExceptionBundle\Handler\Http;
+namespace Tounaf\ExceptionBundle\Handler\Http;
 
-use Pulse\ExceptionBundle\Exception\AbstractPulseException;
-use Pulse\ExceptionBundle\Exception\PulseExceptionInterface;
-use Pulse\ExceptionBundle\FormatResponse\FormatResponseCheckerInterface;
-use Pulse\ExceptionBundle\FormatResponse\FormatResponseInterface;
+use Tounaf\ExceptionBundle\Exception\AbstractException;
+use Tounaf\ExceptionBundle\Exception\ExceptionInterface;
+use Tounaf\ExceptionBundle\FormatResponse\FormatResponseCheckerInterface;
+use Tounaf\ExceptionBundle\FormatResponse\FormatResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class PulseNotFoundHttpExceptionHandler extends AbstractPulseException implements PulseExceptionInterface, FormatResponseCheckerInterface
+class NotFoundHttpExceptionHandler extends AbstractException implements ExceptionInterface, FormatResponseCheckerInterface
 {
     public function __construct(private FormatResponseInterface|null $formatResponseInterface)
     {

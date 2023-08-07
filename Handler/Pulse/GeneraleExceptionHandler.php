@@ -1,14 +1,14 @@
 <?php
 
-namespace Pulse\ExceptionBundle\Handler\Pulse;
+namespace Tounaf\ExceptionBundle\Handler\Pulse;
 
-use Pulse\ExceptionBundle\Code;
-use Pulse\ExceptionBundle\Exception\PulseException;
-use Pulse\ExceptionBundle\Exception\PulseExceptionInterface;
+use Tounaf\ExceptionBundle\Exception\Exception;
+use Tounaf\ExceptionBundle\Exception\ExceptionInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Tounaf\ExceptionBundle\Exception\TounafException;
 
-class PulseGeneraleExceptionHandler implements PulseExceptionInterface
+class GeneraleExceptionHandler implements ExceptionInterface
 {
     /**
      * @param  \Throwable $exception
@@ -31,7 +31,7 @@ class PulseGeneraleExceptionHandler implements PulseExceptionInterface
      */
     public function supportsException(\Throwable $throwable): bool
     {
-        return $throwable instanceof PulseException;
+        return $throwable instanceof TounafException;
     }
 
 }

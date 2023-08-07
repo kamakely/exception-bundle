@@ -1,7 +1,6 @@
 <?php
 
-namespace Pulse\ExceptionBundle\FormatResponse;
-use Symfony\Component\HttpFoundation\Response;
+namespace Tounaf\ExceptionBundle\FormatResponse;
 
 interface FormatResponseCheckerInterface
 {

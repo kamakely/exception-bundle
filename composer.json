@@ -10,12 +10,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Pulse\\ExceptionBundle\\": ""
+            "Tounaf\\ExceptionBundle\\": ""
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Pulse\\ExceptionBundle\\Tests\\": "Tests/"
+            "Tounaf\\ExceptionBundle\\Tests\\": "Tests/"
         }
     },
     "authors": [

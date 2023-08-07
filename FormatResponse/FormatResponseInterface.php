@@ -1,6 +1,6 @@
 <?php
 
-namespace Pulse\ExceptionBundle\FormatResponse;
+namespace Tounaf\ExceptionBundle\FormatResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 interface FormatResponseInterface

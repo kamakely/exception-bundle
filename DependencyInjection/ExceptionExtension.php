@@ -1,14 +1,13 @@
 <?php
 
-namespace Pulse\ExceptionBundle\DependencyInjection;
+namespace Tounaf\ExceptionBundle\DependencyInjection;
 
-use Pulse\ExceptionBundle\FormatResponse\FormatResponseManager;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-class PulseExceptionExtension extends Extension
+class ExceptionExtension extends Extension
 {
     const FORMATS = ['json', 'html'];
 
@@ -17,8 +16,8 @@ class PulseExceptionExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
         $config = $this->processConfiguration(new Configuration(), $configs);
-        $container->setParameter('pulse_exception.debug', $config['debug']);
-        $container->setParameter('pulse_exception.format_handlers', $config['format_handlers']);
+        $container->setParameter('tounaf_exception.debug', $config['debug']);
+        $container->setParameter('tounaf_exception.format_handlers', $config['format_handlers']);
         
     }
 }

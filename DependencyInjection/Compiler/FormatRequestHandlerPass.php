@@ -1,9 +1,9 @@
 <?php
 
-namespace Pulse\ExceptionBundle\DependencyInjection\Compiler;
+namespace Tounaf\ExceptionBundle\DependencyInjection\Compiler;
 
-use Pulse\ExceptionBundle\FormatResponse\FormatResponseManager;
-use Pulse\ExceptionBundle\Negociation\FormatNegociator;
+use Tounaf\ExceptionBundle\FormatResponse\FormatResponseManager;
+use Tounaf\ExceptionBundle\Negociation\FormatNegociator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -19,12 +19,12 @@ class FormatRequestHandlerPass implements CompilerPassInterface
             return;
         }
         
-        $rules = $container->getParameter('pulse_exception.format_handlers');
+        $rules = $container->getParameter('tounaf_exception.format_handlers');
         foreach ($rules as $rule) {
             $this->addRule($rule, $container);
         }
 
-        $taggedDefinitions = $container->findTaggedServiceIds('pulse_exception.response');
+        $taggedDefinitions = $container->findTaggedServiceIds('tounaf_exception.response');
         $manager = $container->findDefinition(FormatResponseManager::class);
         foreach($taggedDefinitions as $serviceId => $tagged) {
             $service = $container->findDefinition($serviceId);
@@ -52,7 +52,7 @@ class FormatRequestHandlerPass implements CompilerPassInterface
     {
         $arguments = [$path, $host, $methods, null, $attributes];
         $serialized = serialize($arguments);
-        $id = 'pulse_exception.request_matcher.'.md5($serialized).sha1($serialized);
+        $id = 'tounaf_exception.request_matcher.'.md5($serialized).sha1($serialized);
 
         if (!$container->hasDefinition($id)) {
             $container->setDefinition($id, new Definition(RequestMatcher::class, $arguments));

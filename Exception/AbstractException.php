@@ -1,8 +1,8 @@
 <?php
 
-namespace Pulse\ExceptionBundle\Exception;
+namespace Tounaf\ExceptionBundle\Exception;
 
-abstract class AbstractPulseException implements PulseExceptionInterface
+abstract class AbstractException implements ExceptionInterface
 {
     /**
      * @param \Exception $exception

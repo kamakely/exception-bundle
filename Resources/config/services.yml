@@ -6,26 +6,26 @@ services:
         # this means you cannot fetch services directly from the container via $container->get()
         # if you need to do this, you can override this setting on individual services
         public: false
-    Pulse\ExceptionBundle\:
+    Tounaf\ExceptionBundle\:
         resource: '../../'
         # you can exclude directories or files
         # but if a service is unused, it's removed anyway
         exclude: '../../{Entity,Repository,Tests}'
 
-    Pulse\ExceptionBundle\Exception\PulseExceptionRegistry:
+    Tounaf\ExceptionBundle\Exception\ExceptionRegistry:
         arguments:
-            - !tagged pulse_exception.handler
+            - !tagged tounaf_exception.handler
     
-    Pulse\ExceptionBundle\Handler\Pulse\PulseGeneraleLoggerExceptionHandler:
-        decorates: 'Pulse\ExceptionBundle\Handler\Pulse\PulseGeneraleExceptionHandler'
+    Tounaf\ExceptionBundle\Handler\Tounaf\GeneraleLoggerExceptionHandler:
+        decorates: 'Tounaf\ExceptionBundle\Handler\Tounaf\GeneraleExceptionHandler'
         arguments: ['@.inner', '@logger']
         decoration_priority: 1
         public: false
 
-    Pulse\ExceptionBundle\Listener\PulseExceptionListener:
+    Tounaf\ExceptionBundle\Listener\ExceptionListener:
         tags: 
             - { name: kernel.event_listener, priority: 200}
 
-    Pulse\ExceptionBundle\Listener\FormatRequestListener:
+    Tounaf\ExceptionBundle\Listener\FormatRequestListener:
         tags: 
             - { name: kernel.event_listener, priority: 300}

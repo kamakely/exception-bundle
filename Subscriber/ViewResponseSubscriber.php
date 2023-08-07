@@ -1,8 +1,8 @@
 <?php
 
-namespace Pulse\ExceptionBundle\Subscriber;
+namespace Tounaf\ExceptionBundle\Subscriber;
 
-use Pulse\ExceptionBundle\FormatResponse\FormatResponseManager;
+use Tounaf\ExceptionBundle\FormatResponse\FormatResponseManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;

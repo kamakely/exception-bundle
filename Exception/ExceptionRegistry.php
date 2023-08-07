@@ -1,13 +1,13 @@
 <?php
 
-namespace Pulse\ExceptionBundle\Exception;
+namespace Tounaf\ExceptionBundle\Exception;
 
-use Pulse\ExceptionBundle\FormatResponse\FormatResponseCheckerInterface;
-use Pulse\ExceptionBundle\FormatResponse\FormatResponseManager;
-use Pulse\ExceptionBundle\Handler\PulseLogicExceptionHandler;
+use Tounaf\ExceptionBundle\FormatResponse\FormatResponseCheckerInterface;
+use Tounaf\ExceptionBundle\FormatResponse\FormatResponseManager;
+use Tounaf\ExceptionBundle\Handler\LogicExceptionHandler;
 use Symfony\Component\HttpFoundation\Request;
 
-class PulseExceptionRegistry
+class ExceptionRegistry
 {
     /**
      * @var PosExceptionInterface[] $exceptionHandlers
@@ -31,15 +31,15 @@ class PulseExceptionRegistry
 
     /**
      * @param  \Throwable $throwable
-     * @return AbstractPulseException|PulseExceptionInterface
+     * @return AbstractException|ExceptionInterface
      */
     public function getExceptionHandler(\Throwable $throwable, Request $request)
     {
-        $handler = new PulseGenericExceptionHandler();
+        $handler = new GenericExceptionHandler();
         try {
             foreach($this->exceptionHandlers as $exceptionHandler) {
-                if(!$exceptionHandler instanceof PulseExceptionInterface) {
-                    throw new PulseException(sprintf('Handler %s must implement the %s interface', get_class($exceptionHandler), PulseExceptionInterface::class));
+                if(!$exceptionHandler instanceof ExceptionInterface) {
+                    throw new TounafException(sprintf('Handler %s must implement the %s interface', get_class($exceptionHandler), ExceptionInterface::class));
                 }
 
                 if($exceptionHandler->supportsException($throwable)) {
@@ -51,7 +51,7 @@ class PulseExceptionRegistry
                 }
             }
         } catch(\Exception $exception) {
-            return new PulseLogicExceptionHandler($exception->getMessage());
+            return new LogicExceptionHandler($exception->getMessage());
         }
         return $handler;
     }

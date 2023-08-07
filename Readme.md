@@ -29,7 +29,7 @@ namespace App\Handler\Exception;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Pulse\ExceptionBundle\PulseExceptionInterface;
+use Tounaf\ExceptionBundle\PulseExceptionInterface;
 
 class MyException extends \Exception 
 {
@@ -45,7 +45,7 @@ namespace App\Handler\Exception;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Pulse\ExceptionBundle\PulseExceptionInterface;
+use Tounaf\ExceptionBundle\PulseExceptionInterface;
 
 class MyExceptionHandler implements PulseExceptionInterface 
 {

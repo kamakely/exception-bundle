@@ -1,6 +1,6 @@
 <?php
 
-namespace Pulse\ExceptionBundle\Negociation;
+namespace Tounaf\ExceptionBundle\Negociation;
 
 use Symfony\Component\HttpFoundation\RequestMatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;

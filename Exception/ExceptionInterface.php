@@ -1,14 +1,14 @@
 <?php
 
-namespace Pulse\ExceptionBundle\Exception;
+namespace Tounaf\ExceptionBundle\Exception;
 
 use Symfony\Component\HttpFoundation\Response;
 
-interface PulseExceptionInterface
+interface ExceptionInterface
 {
     /**
      * @param  \Throwable $throwable
-     * @return array
+     * @return Response
      */
     public function handleException(\Throwable $throwable): Response;
 

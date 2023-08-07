@@ -1,15 +1,15 @@
 <?php
 
-namespace Pulse\ExceptionBundle\Handler\Http;
+namespace Tounaf\ExceptionBundle\Handler\Http;
 
-use Pulse\Bundle\CommunBundle\Utils\ConstantSrv;
-use Pulse\ExceptionBundle\Exception\AbstractPulseException;
-use Pulse\ExceptionBundle\Exception\PulseExceptionInterface;
+use Tounaf\Bundle\CommunBundle\Utils\ConstantSrv;
+use Tounaf\ExceptionBundle\Exception\AbstractException;
+use Tounaf\ExceptionBundle\Exception\ExceptionInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
-class PulseMethodNotAllowedHttpExceptionHandler extends AbstractPulseException implements PulseExceptionInterface
+class MethodNotAllowedHttpExceptionHandler extends AbstractException implements ExceptionInterface
 {
     public function handleException(\Throwable $throwable): Response
     {

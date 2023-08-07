@@ -1,12 +1,12 @@
 <?php
 
-namespace Pulse\ExceptionBundle\Handler;
+namespace Tounaf\ExceptionBundle\Handler;
 
-use Pulse\ExceptionBundle\Exception\PulseExceptionInterface;
+use Tounaf\ExceptionBundle\Exception\ExceptionInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class PulseLogicExceptionHandler implements PulseExceptionInterface
+class LogicExceptionHandler implements ExceptionInterface
 {
     public function __construct(private string $message)
     {

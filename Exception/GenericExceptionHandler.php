@@ -1,13 +1,11 @@
 <?php
 
-namespace Pulse\ExceptionBundle\Handler\Http;
+namespace Tounaf\ExceptionBundle\Exception;
 
-use Pulse\ExceptionBundle\Exception\PulseExceptionInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
-class PulseAccessDeniedHttpExceptionHandler implements PulseExceptionInterface
+class GenericExceptionHandler implements ExceptionInterface
 {
     /**
      * @param  \Throwable $throwable
@@ -15,11 +13,12 @@ class PulseAccessDeniedHttpExceptionHandler implements PulseExceptionInterface
      */
     public function handleException(\Throwable $throwable): Response
     {
+        $messageExeption = $throwable->getMessage();
         return new JsonResponse(
             array(
-                'message' => $throwable->getMessage(),
-                'http_message' => 'Forbidden',
-                'code' => Response::HTTP_FORBIDDEN
+            'message' => $messageExeption,
+            'http_message' => 'Erreur interne',
+            'code' => Response::HTTP_INTERNAL_SERVER_ERROR
             )
         );
     }
@@ -30,7 +29,7 @@ class PulseAccessDeniedHttpExceptionHandler implements PulseExceptionInterface
      */
     public function supportsException(\Throwable $throwable): bool
     {
-        return $throwable instanceof AccessDeniedHttpException;
+        return false;
     }
 
 }

@@ -1,35 +1,38 @@
 <?php
 
-namespace Pulse\ExceptionBundle\Tests;
+namespace Tounaf\ExceptionBundle\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Pulse\ExceptionBundle\Exception\PulseExceptionInterface;
-use Pulse\ExceptionBundle\Exception\PulseExceptionRegistry;
+use Tounaf\ExceptionBundle\Exception\ExceptionInterface;
+use Tounaf\ExceptionBundle\Exception\ExceptionRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class PulseRegistryTest extends KernelTestCase
+class RegistryTest extends KernelTestCase
 {
     public function testRightHandler(): void
     {
-        $registry = new PulseExceptionRegistry([new Custom()]);
+        $request = Request::createFromGlobals();
+        $registry = new ExceptionRegistry([new Custom()]);
         $exception = new MyException();
-        $handler = $registry->getExceptionHandler($exception);
+        $handler = $registry->getExceptionHandler($exception, $request);
         $this->assertInstanceOf(Custom::class, $handler);
     }
 
     public function testWrongHandler(): void
     {
-        $registry = new PulseExceptionRegistry([new Custom()]);
+        $request = Request::createFromGlobals();
+        $registry = new ExceptionRegistry([new Custom()]);
         $exception = new \Exception();
-        $handler = $registry->getExceptionHandler($exception);
+        $handler = $registry->getExceptionHandler($exception, $request);
         $this->assertNotInstanceOf(Custom::class, $handler);
     }
 
 }
 
 
-class Custom implements PulseExceptionInterface
+class Custom implements ExceptionInterface
 {
     /**
      * @param  \Exception $exception
