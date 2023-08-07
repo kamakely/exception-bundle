@@ -1,6 +1,6 @@
 <?php
 
-namespace Tounaf\ExceptionBundle\Handler\Pulse;
+namespace Tounaf\ExceptionBundle\Handler\Generic;
 
 use Psr\Log\LoggerInterface;
 use Tounaf\ExceptionBundle\Exception\Exception;

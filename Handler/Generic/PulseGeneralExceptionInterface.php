@@ -1,6 +1,6 @@
 <?php
 
-namespace Tounaf\ExceptionBundle\Handler\Pulse;
+namespace Tounaf\ExceptionBundle\Handler\Generic;
 
 use Symfony\Component\HttpFoundation\Response;
 

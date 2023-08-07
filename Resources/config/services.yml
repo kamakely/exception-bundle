@@ -16,8 +16,8 @@ services:
         arguments:
             - !tagged tounaf_exception.handler
     
-    Tounaf\ExceptionBundle\Handler\Tounaf\GeneraleLoggerExceptionHandler:
-        decorates: 'Tounaf\ExceptionBundle\Handler\Tounaf\GeneraleExceptionHandler'
+    Tounaf\ExceptionBundle\Handler\Generic\GeneraleLoggerExceptionHandler:
+        decorates: 'Tounaf\ExceptionBundle\Handler\Generic\GeneraleExceptionHandler'
         arguments: ['@.inner', '@logger']
         decoration_priority: 1
         public: false
