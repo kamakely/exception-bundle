@@ -1,15 +1,16 @@
+If you need to manage complexe exception in your application, this bundle is set for you .
 This bundle provides interface to facilitate the customization of the exception rendering in Symfony project.
+Each exception that you create has his own handler classe. Your exception will be scalable, maintenable, independante.
 
-In Dev mode, 
 
 ## 1 - Installation 
 ```bash
-composer require pulse/execption-bundle
+composer require tounaf/execption-bundle
 ```
 
 ### 2 - How to work
 
-By default, this bundle handle the http exception in x
+By default, this bundle handle exception and render a json response but you can customize this behavior with your needs (ex: html)
 
 ## 3 - Create custom execption handler
 
@@ -27,10 +28,6 @@ First create Exception to handle through the app.
 
 namespace App\Handler\Exception;
 
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Tounaf\ExceptionBundle\PulseExceptionInterface;
-
 class MyException extends \Exception 
 {
 }
@@ -45,9 +42,9 @@ namespace App\Handler\Exception;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tounaf\ExceptionBundle\PulseExceptionInterface;
+use Tounaf\ExceptionBundle\ExceptionInterface;
 
-class MyExceptionHandler implements PulseExceptionInterface 
+class MyExceptionHandler implements ExceptionInterface 
 {
     // return an JsonResponse
     public function handleException(\Throwable $throwable): Response
@@ -85,5 +82,3 @@ class MyService
 }
 
 ```
-
-## 3 - Decorate existing exception handler
