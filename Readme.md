@@ -5,7 +5,7 @@ Each exception that you create has his own handler classe. Your exception will b
 
 ## 1 - Installation 
 ```bash
-composer require tounaf/execption-bundle
+composer require tounaf/exception-bundle
 ```
 
 ### 2 - How to work
