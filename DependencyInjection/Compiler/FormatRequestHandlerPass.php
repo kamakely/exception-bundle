@@ -18,7 +18,24 @@ class FormatRequestHandlerPass implements CompilerPassInterface
         if(!$container->hasDefinition(FormatNegociator::class)) {
             return;
         }
+        $htmlRules = [
+            "path" => "/",
+            "format" => "html",
+            "host" => "",
+            "methods" => [],
+            "attributes" => []
+        ];
         
+        $jsonRules = [
+            "path" => "/api",
+            "format" => "json",
+            "host" => "",
+            "methods" => [],
+            "attributes" => []
+        ];
+
+        $this->addRule($jsonRules, $container);
+        $this->addRule($htmlRules, $container);
         $rules = $container->getParameter('tounaf_exception.format_handlers');
         foreach ($rules as $rule) {
             $this->addRule($rule, $container);

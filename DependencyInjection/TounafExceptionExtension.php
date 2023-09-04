@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-class ExceptionExtension extends Extension
+class TounafExceptionExtension extends Extension
 {
     const FORMATS = ['json', 'html'];
 

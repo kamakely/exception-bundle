@@ -4,7 +4,7 @@ namespace Tounaf\ExceptionBundle;
 use Tounaf\ExceptionBundle\DependencyInjection\Compiler\FormatRequestHandlerPass;
 use Tounaf\ExceptionBundle\DependencyInjection\Compiler\ListenerExceptionPass;
 use Tounaf\ExceptionBundle\DependencyInjection\Compiler\LogicHandlerExceptionPass;
-use Tounaf\ExceptionBundle\DependencyInjection\ExceptionExtension;
+use Tounaf\ExceptionBundle\DependencyInjection\TounafExceptionExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Tounaf\ExceptionBundle\Exception\ExceptionInterface;
@@ -14,7 +14,7 @@ class TounafExceptionBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {
-        $container->registerExtension(new ExceptionExtension());
+        $container->registerExtension(new TounafExceptionExtension());
         parent::build($container);
         $container->addCompilerPass(new ListenerExceptionPass());
         $container->addCompilerPass(new LogicHandlerExceptionPass());
