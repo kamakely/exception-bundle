@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
                         ->children()
                             ->scalarNode('path')->end()
                             ->scalarNode('host')->defaultNull()->end()
-                            ->scalarNode('methods')->defaultNull()->end()
+                            ->scalarNode('methods')->defaultValue([])->end()
                             ->scalarNode('attributes')->defaultValue([])->end()
                             ->scalarNode('format')->end()
                         ->end()

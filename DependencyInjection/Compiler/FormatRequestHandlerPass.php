@@ -9,6 +9,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpFoundation\ChainRequestMatcher;
+use Symfony\Component\HttpFoundation\RequestMatcher\AttributesRequestMatcher;
+use Symfony\Component\HttpFoundation\RequestMatcher\MethodRequestMatcher;
+use Symfony\Component\HttpFoundation\RequestMatcher\PathRequestMatcher;
+use Symfony\Component\HttpFoundation\RequestMatcherInterface;
 
 class FormatRequestHandlerPass implements CompilerPassInterface
 {
@@ -65,14 +69,25 @@ class FormatRequestHandlerPass implements CompilerPassInterface
             ->addMethodCall('add', [$matcher, $rule]);
     }
 
-    private function createRequestMatcher(ContainerBuilder $container, ?string $path = null, ?string $host = null, ?array $methods = null, array $attributes = []): Reference
+    private function createRequestMatcher(ContainerBuilder $container, ?string $path = null, ?string $host = null, ?array $methods = [], array $attributes = []): Reference
     {
-        $arguments = [$path, $host, $methods, null, $attributes];
+        $pathReferenceMatcher = $this->createReferenceMatcher(new PathRequestMatcher($path), $container, 'path', [$path]);
+        $methodsReferenceMatcher = $this->createReferenceMatcher(new MethodRequestMatcher($methods), $container, 'methods', [$methods]);
+        $attributesReferenceMatcher = $this->createReferenceMatcher(new AttributesRequestMatcher($attributes), $container, 'attributes', [$attributes]);
+   
+        $arguments = [$pathReferenceMatcher, $methodsReferenceMatcher, $attributesReferenceMatcher];
+        
+        return $this->createReferenceMatcher(new ChainRequestMatcher($arguments), $container, 'chain', [$arguments]);
+
+    }
+
+    private function createReferenceMatcher(RequestMatcherInterface $requestMatcherInterface, ContainerBuilder $container, string $matchable, array $arguments)
+    {
         $serialized = serialize($arguments);
-        $id = 'tounaf_exception.request_matcher.'.md5($serialized).sha1($serialized);
+        $id = 'tounaf_exception' .$matchable .'._matcher.'.md5($serialized).sha1($serialized);
 
         if (!$container->hasDefinition($id)) {
-            $container->setDefinition($id, new Definition(ChainRequestMatcher::class, $arguments));
+            $container->setDefinition($id, new Definition(get_class($requestMatcherInterface), $arguments));
         }
 
         return new Reference($id);
