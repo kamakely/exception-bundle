@@ -4,7 +4,7 @@ namespace Tounaf\ExceptionBundle\Exception;
 
 use Symfony\Component\HttpFoundation\Response;
 
-interface ExceptionInterface
+interface ExceptionHandlerInterface
 {
     /**
      * @param  \Throwable $throwable

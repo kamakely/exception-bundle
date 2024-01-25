@@ -3,7 +3,7 @@
 namespace Tounaf\ExceptionBundle\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Tounaf\ExceptionBundle\Exception\ExceptionInterface;
+use Tounaf\ExceptionBundle\Exception\ExceptionHandlerInterface;
 use Tounaf\ExceptionBundle\Exception\ExceptionRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +32,7 @@ class RegistryTest extends KernelTestCase
 }
 
 
-class Custom implements ExceptionInterface
+class Custom implements ExceptionHandlerInterface
 {
     /**
      * @param  \Exception $exception

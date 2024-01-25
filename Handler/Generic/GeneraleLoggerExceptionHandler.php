@@ -4,17 +4,18 @@ namespace Tounaf\ExceptionBundle\Handler\Generic;
 
 use Psr\Log\LoggerInterface;
 use Tounaf\ExceptionBundle\Exception\Exception;
-use Tounaf\ExceptionBundle\Exception\ExceptionInterface;
+use Tounaf\ExceptionBundle\Exception\ExceptionHandlerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Tounaf\ExceptionBundle\Exception\TounafException;
 
-class GeneraleLoggerExceptionHandler implements ExceptionInterface
+class GeneraleLoggerExceptionHandler implements ExceptionHandlerInterface
 {
     /**
      * @var LoggerInterface $logger
      */
     private $logger;
-    public function __construct(private ExceptionInterface $exceptionInterface, LoggerInterface $logger)
+
+    public function __construct(private ExceptionHandlerInterface $exceptionHandlerInterface, LoggerInterface $logger)
     {
         $this->logger = $logger;
     }
@@ -24,12 +25,11 @@ class GeneraleLoggerExceptionHandler implements ExceptionInterface
      */
     public function handleException(\Throwable $throwable): Response
     {
-        $this->logger->notice(" --- PULSE: L'ERREUR SUIVANTE EST LEVÉE PAR POS ---");
-        $this->logger->error(sprintf('--- PULSE: CAUSE: %s', $throwable->getMessage()));
-        $this->logger->error(sprintf('--- PULSE: FILE: %s', $throwable->getFile()));
-        $this->logger->error(sprintf('--- PULSE: LINE: %s', $throwable->getLine()));
-        $this->logger->error(sprintf('--- PULSE: TRACE: %s', $throwable->getTraceAsString()));
-        return $this->exceptionInterface->handleException($throwable);
+        $this->logger->notice(
+            sprintf("This notice is provided by tounaf/exception-bundle")
+        );
+        
+        return $this->exceptionHandlerInterface->handleException($throwable);
     }
 
     public function supportsException(\Throwable $throwable): bool
