@@ -7,9 +7,16 @@ use Tounaf\ExceptionBundle\Exception\ExceptionHandlerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Tounaf\ExceptionBundle\FormatResponse\FormatResponseCheckerInterface;
+use Tounaf\ExceptionBundle\FormatResponse\FormatResponseInterface;
 
-class BadRequestHttpExceptionHandler extends AbstractException implements ExceptionHandlerInterface
+class BadRequestHttpExceptionHandler extends AbstractException implements ExceptionHandlerInterface, FormatResponseCheckerInterface
 {
+    public function __construct(private FormatResponseInterface $formatResponseInterface)
+    {
+        
+    }
+
     public function handleException(\Throwable $throwable): Response
     {
         return new JsonResponse(
@@ -29,4 +36,8 @@ class BadRequestHttpExceptionHandler extends AbstractException implements Except
         return $throwable instanceof BadRequestHttpException;
     }
 
+    public function setFormat(FormatResponseInterface $formatResponseInterface): void
+    {
+        $this->formatResponseInterface = $formatResponseInterface;
+    }
 }

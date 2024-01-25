@@ -7,9 +7,15 @@ use Tounaf\ExceptionBundle\Exception\ExceptionHandlerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Tounaf\ExceptionBundle\Exception\TounafException;
+use Tounaf\ExceptionBundle\FormatResponse\FormatResponseCheckerInterface;
+use Tounaf\ExceptionBundle\FormatResponse\FormatResponseInterface;
 
-class GeneraleExceptionHandler implements ExceptionHandlerInterface
+class GeneraleExceptionHandler implements ExceptionHandlerInterface, FormatResponseCheckerInterface
 {
+    public function __construct(private FormatResponseInterface $formatResponseInterface)
+    {
+        
+    }
     /**
      * @param  \Throwable $exception
      * @return array
@@ -32,6 +38,11 @@ class GeneraleExceptionHandler implements ExceptionHandlerInterface
     public function supportsException(\Throwable $throwable): bool
     {
         return $throwable instanceof TounafException;
+    }
+
+    public function setFormat(FormatResponseInterface $formatResponseInterface): void
+    {
+        $this->formatResponseInterface = $formatResponseInterface;
     }
 
 }

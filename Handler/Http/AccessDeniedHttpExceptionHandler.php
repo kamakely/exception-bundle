@@ -6,16 +6,23 @@ use Tounaf\ExceptionBundle\Exception\ExceptionHandlerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Tounaf\ExceptionBundle\FormatResponse\FormatResponseCheckerInterface;
+use Tounaf\ExceptionBundle\FormatResponse\FormatResponseInterface;
 
-class AccessDeniedHttpExceptionHandler implements ExceptionHandlerInterface
+class AccessDeniedHttpExceptionHandler implements ExceptionHandlerInterface, FormatResponseCheckerInterface
 {
+
+    public function __construct(private FormatResponseInterface $formatResponseInterface)
+    {
+        
+    }
     /**
      * @param  \Throwable $throwable
      * @return array
      */
     public function handleException(\Throwable $throwable): Response
     {
-        return new JsonResponse(
+        return $this->formatResponseInterface->render(
             array(
                 'message' => $throwable->getMessage(),
                 'http_message' => 'Forbidden',
@@ -31,6 +38,11 @@ class AccessDeniedHttpExceptionHandler implements ExceptionHandlerInterface
     public function supportsException(\Throwable $throwable): bool
     {
         return $throwable instanceof AccessDeniedHttpException;
+    }
+
+    public function setFormat(FormatResponseInterface $formatResponseInterface): void
+    {
+        $this->formatResponseInterface = $formatResponseInterface;
     }
 
 }
