@@ -15,9 +15,10 @@ class TounafExceptionExtension extends Extension
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
         $config = $this->processConfiguration(new Configuration(), $configs);
+        
         $container->setParameter('tounaf_exception.debug', $config['debug']);
         $container->setParameter('tounaf_exception.format_handlers', $config['format_handlers']);
-        
     }
 }

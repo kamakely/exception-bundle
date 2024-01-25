@@ -5,7 +5,7 @@ namespace Tounaf\ExceptionBundle\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class GenericExceptionHandler implements ExceptionInterface
+class GenericExceptionHandler implements ExceptionHandlerInterface
 {
     /**
      * @param  \Throwable $throwable

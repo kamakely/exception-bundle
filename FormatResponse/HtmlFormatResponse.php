@@ -17,7 +17,7 @@ class HtmlFormatResponse implements FormatResponseInterface
      */
     public function render(array $data): Response
     {
-        return new Response('error');
+        return new Response('Resource not found');
     }
 
     /**

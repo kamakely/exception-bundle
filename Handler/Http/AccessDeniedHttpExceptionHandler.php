@@ -2,12 +2,12 @@
 
 namespace Tounaf\ExceptionBundle\Handler\Http;
 
-use Tounaf\ExceptionBundle\Exception\ExceptionInterface;
+use Tounaf\ExceptionBundle\Exception\ExceptionHandlerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
-class AccessDeniedHttpExceptionHandler implements ExceptionInterface
+class AccessDeniedHttpExceptionHandler implements ExceptionHandlerInterface
 {
     /**
      * @param  \Throwable $throwable

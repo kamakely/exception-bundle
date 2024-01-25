@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\HttpFoundation\RequestMatcher;
+use Symfony\Component\HttpFoundation\ChainRequestMatcher;
 
 class FormatRequestHandlerPass implements CompilerPassInterface
 {
@@ -72,7 +72,7 @@ class FormatRequestHandlerPass implements CompilerPassInterface
         $id = 'tounaf_exception.request_matcher.'.md5($serialized).sha1($serialized);
 
         if (!$container->hasDefinition($id)) {
-            $container->setDefinition($id, new Definition(RequestMatcher::class, $arguments));
+            $container->setDefinition($id, new Definition(ChainRequestMatcher::class, $arguments));
         }
 
         return new Reference($id);

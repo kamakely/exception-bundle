@@ -2,7 +2,7 @@
 
 namespace Tounaf\ExceptionBundle\Exception;
 
-abstract class AbstractException implements ExceptionInterface
+abstract class AbstractException implements ExceptionHandlerInterface
 {
     /**
      * @param \Exception $exception

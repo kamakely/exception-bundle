@@ -7,7 +7,7 @@ use Tounaf\ExceptionBundle\DependencyInjection\Compiler\LogicHandlerExceptionPas
 use Tounaf\ExceptionBundle\DependencyInjection\TounafExceptionExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Tounaf\ExceptionBundle\Exception\ExceptionInterface;
+use Tounaf\ExceptionBundle\Exception\ExceptionHandlerInterface;
 use Tounaf\ExceptionBundle\FormatResponse\FormatResponseInterface;
 
 class TounafExceptionBundle extends Bundle
@@ -16,10 +16,12 @@ class TounafExceptionBundle extends Bundle
     {
         $container->registerExtension(new TounafExceptionExtension());
         parent::build($container);
+
         $container->addCompilerPass(new ListenerExceptionPass());
         $container->addCompilerPass(new LogicHandlerExceptionPass());
         $container->addCompilerPass(new FormatRequestHandlerPass());
-        $container->registerForAutoconfiguration(ExceptionInterface::class)
+        
+        $container->registerForAutoconfiguration(ExceptionHandlerInterface::class)
             ->addTag('tounaf_exception.handler');
         $container->registerForAutoconfiguration(FormatResponseInterface::class)
             ->addTag('tounaf_exception.response');

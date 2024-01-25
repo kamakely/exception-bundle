@@ -31,28 +31,36 @@ class ExceptionRegistry
 
     /**
      * @param  \Throwable $throwable
-     * @return AbstractException|ExceptionInterface
+     * @return AbstractException|ExceptionHandlerInterface
      */
     public function getExceptionHandler(\Throwable $throwable, Request $request)
     {
         $handler = new GenericExceptionHandler();
+        
         try {
             foreach($this->exceptionHandlers as $exceptionHandler) {
-                if(!$exceptionHandler instanceof ExceptionInterface) {
-                    throw new TounafException(sprintf('Handler %s must implement the %s interface', get_class($exceptionHandler), ExceptionInterface::class));
+
+                if(!$exceptionHandler instanceof ExceptionHandlerInterface) {
+                    throw new TounafException(sprintf('Handler %s must implement the %s interface', get_class($exceptionHandler), ExceptionHandlerInterface::class));
                 }
 
                 if($exceptionHandler->supportsException($throwable)) {
+
                     if ($exceptionHandler instanceof FormatResponseCheckerInterface) {
                         $formatResponse = $this->formatResponseManager->getFormatHandler($request->getRequestFormat(null));
                         $exceptionHandler->setFormat($formatResponse);
                     }
-                    $handler = $exceptionHandler;
+                    
+                    return $exceptionHandler;
                 }
             }
+
         } catch(\Exception $exception) {
+
             return new LogicExceptionHandler($exception->getMessage());
+
         }
+
         return $handler;
     }
 }

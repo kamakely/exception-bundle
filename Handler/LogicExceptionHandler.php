@@ -2,11 +2,11 @@
 
 namespace Tounaf\ExceptionBundle\Handler;
 
-use Tounaf\ExceptionBundle\Exception\ExceptionInterface;
+use Tounaf\ExceptionBundle\Exception\ExceptionHandlerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class LogicExceptionHandler implements ExceptionInterface
+class LogicExceptionHandler implements ExceptionHandlerInterface
 {
     public function __construct(private string $message)
     {
@@ -21,8 +21,7 @@ class LogicExceptionHandler implements ExceptionInterface
         return new JsonResponse(
             array(
                 'message' => $this->message,
-                'http_message' => 'Logical Exception',
-                'code' => 400
+                'http_message' => 'Logical Exception'
             )
         );
     }

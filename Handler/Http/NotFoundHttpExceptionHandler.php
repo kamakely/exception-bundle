@@ -3,13 +3,13 @@
 namespace Tounaf\ExceptionBundle\Handler\Http;
 
 use Tounaf\ExceptionBundle\Exception\AbstractException;
-use Tounaf\ExceptionBundle\Exception\ExceptionInterface;
+use Tounaf\ExceptionBundle\Exception\ExceptionHandlerInterface;
 use Tounaf\ExceptionBundle\FormatResponse\FormatResponseCheckerInterface;
 use Tounaf\ExceptionBundle\FormatResponse\FormatResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class NotFoundHttpExceptionHandler extends AbstractException implements ExceptionInterface, FormatResponseCheckerInterface
+class NotFoundHttpExceptionHandler extends AbstractException implements ExceptionHandlerInterface, FormatResponseCheckerInterface
 {
     public function __construct(private FormatResponseInterface|null $formatResponseInterface)
     {

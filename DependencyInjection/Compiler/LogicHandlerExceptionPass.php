@@ -16,6 +16,5 @@ class LogicHandlerExceptionPass implements CompilerPassInterface
             $definition = $container->getDefinition(LogicExceptionHandler::class);
             $definition->addArgument(self::MESSAGE);
         }
-        
     }
 }
