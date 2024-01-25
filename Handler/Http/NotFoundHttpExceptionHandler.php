@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class NotFoundHttpExceptionHandler extends AbstractException implements ExceptionHandlerInterface, FormatResponseCheckerInterface
 {
-    public function __construct(private FormatResponseInterface|null $formatResponseInterface)
+    public function __construct(private FormatResponseInterface $formatResponseInterface)
     {
         
     }
@@ -34,18 +34,10 @@ class NotFoundHttpExceptionHandler extends AbstractException implements Exceptio
         return $throwable instanceof NotFoundHttpException;
     }
 
-    /**
-     * @var    string $format
-     * @return bool
-     */
-    public function format(array $format): bool
-    {
-        return $format === 'json';
-    }
 
-    public function setFormat(FormatResponseInterface $formatResponse): void
+    public function setFormat(FormatResponseInterface $formatResponseInterface): void
     {
-        $this->formatResponseInterface = $formatResponse;
+        $this->formatResponseInterface = $formatResponseInterface;
     }
 
 }

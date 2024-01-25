@@ -8,9 +8,16 @@ use Tounaf\ExceptionBundle\Exception\ExceptionHandlerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Tounaf\ExceptionBundle\FormatResponse\FormatResponseCheckerInterface;
+use Tounaf\ExceptionBundle\FormatResponse\FormatResponseInterface;
 
-class MethodNotAllowedHttpExceptionHandler extends AbstractException implements ExceptionHandlerInterface
+class MethodNotAllowedHttpExceptionHandler extends AbstractException implements ExceptionHandlerInterface, FormatResponseCheckerInterface
 {
+    public function __construct(private FormatResponseInterface $formatResponseInterface)
+    {
+        
+    }
+
     public function handleException(\Throwable $throwable): Response
     {
         return new JsonResponse(
@@ -30,4 +37,8 @@ class MethodNotAllowedHttpExceptionHandler extends AbstractException implements 
         return $throwable instanceof MethodNotAllowedHttpException;
     }
 
+    public function setFormat(FormatResponseInterface $formatResponseInterface): void
+    {
+        $this->formatResponseInterface = $formatResponseInterface;
+    }
 }

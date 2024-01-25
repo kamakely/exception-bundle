@@ -5,10 +5,12 @@ namespace Tounaf\ExceptionBundle\Handler;
 use Tounaf\ExceptionBundle\Exception\ExceptionHandlerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Tounaf\ExceptionBundle\FormatResponse\FormatResponseCheckerInterface;
+use Tounaf\ExceptionBundle\FormatResponse\FormatResponseInterface;
 
-class LogicExceptionHandler implements ExceptionHandlerInterface
+class LogicExceptionHandler implements ExceptionHandlerInterface, FormatResponseCheckerInterface
 {
-    public function __construct(private string $message)
+    public function __construct(private FormatResponseInterface $formatResponseInterface)
     {
 
     }
@@ -18,9 +20,9 @@ class LogicExceptionHandler implements ExceptionHandlerInterface
      */
     public function handleException(\Throwable $throwable): Response
     {
-        return new JsonResponse(
+        return $this->formatResponseInterface->render(
             array(
-                'message' => $this->message,
+                'message' => $throwable->getMessage(),
                 'http_message' => 'Logical Exception'
             )
         );
@@ -35,4 +37,8 @@ class LogicExceptionHandler implements ExceptionHandlerInterface
         return false;
     }
 
+    public function setFormat(FormatResponseInterface $formatResponseInterface): void
+    {
+        $this->formatResponseInterface = $formatResponseInterface;
+    }
 }

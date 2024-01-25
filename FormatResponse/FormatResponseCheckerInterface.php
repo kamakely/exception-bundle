@@ -4,12 +4,8 @@ namespace Tounaf\ExceptionBundle\FormatResponse;
 
 interface FormatResponseCheckerInterface
 {
-    
     /**
-     * @var    array $data
-     * @return bool
+     * @var $formatResponse FormatResponseInterface
      */
-    public function format(array $format): bool;
-
     public function setFormat(FormatResponseInterface $formatResponse): void;
 }

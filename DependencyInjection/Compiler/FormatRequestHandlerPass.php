@@ -84,7 +84,7 @@ class FormatRequestHandlerPass implements CompilerPassInterface
     private function createReferenceMatcher(RequestMatcherInterface $requestMatcherInterface, ContainerBuilder $container, string $matchable, array $arguments)
     {
         $serialized = serialize($arguments);
-        $id = 'tounaf_exception' .$matchable .'._matcher.'.md5($serialized).sha1($serialized);
+        $id = 'tounaf_exception.' .$matchable .'_matcher.'.md5($serialized).sha1($serialized);
 
         if (!$container->hasDefinition($id)) {
             $container->setDefinition($id, new Definition(get_class($requestMatcherInterface), $arguments));

@@ -35,7 +35,7 @@ class ExceptionRegistry
      */
     public function getExceptionHandler(\Throwable $throwable, Request $request)
     {
-        $handler = new GenericExceptionHandler();
+        $formatResponse = $this->formatResponseManager->getFormatHandler($request->getRequestFormat(null));
         
         try {
             foreach($this->exceptionHandlers as $exceptionHandler) {
@@ -57,10 +57,10 @@ class ExceptionRegistry
 
         } catch(\Exception $exception) {
 
-            return new LogicExceptionHandler($exception->getMessage());
+            return new LogicExceptionHandler($formatResponse);
 
         }
-
-        return $handler;
+        
+        return new GenericExceptionHandler($formatResponse);
     }
 }

@@ -82,3 +82,32 @@ class MyService
 }
 
 ```
+
+## 3 - Format Response
+Sometimes, your app provides the service that third party can consume:
+for example :
+```php
+/api/users/list returns a json {"data": [{"name":"user1"}, {"name":"user2"}]}
+
+```
+but the uri
+
+```php
+/admin/users/list renders an html page
+```
+You have the same data but the format of response is different through URI .
+To handle that, the Intefance FormatResponseInterface provides two methods:
+```php
+
+    /**
+     * @var    array $data
+     * @return 
+     */
+    public function render(array $data): Response;
+
+    /**
+     * @var    string $format
+     * @return bool
+     */
+    public function supportsFormat(string $format): bool;
+```
