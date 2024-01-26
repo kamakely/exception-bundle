@@ -21,14 +21,17 @@ final class FormatResponseManager
         $this->formatHandlers[] = $formatResponseInterface;
     }
 
-    public function getFormatHandler(string $format): FormatResponseInterface
+    public function getFormatHandler(?string $format): FormatResponseInterface
     {
         foreach($this->formatHandlers as $formatHandler) {
             if($formatHandler->supportsFormat($format)) {
                 return $formatHandler;
             }
-        } 
+        }
+        
+        return new JsonFormatResponse();
     }
+    
     public function getFormatHandlers()
     {
         return $this->formatHandlers;
