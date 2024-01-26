@@ -2,7 +2,6 @@
 
 namespace Tounaf\ExceptionBundle\Handler\Http;
 
-use Tounaf\Bundle\CommunBundle\Utils\ConstantSrv;
 use Tounaf\ExceptionBundle\Exception\AbstractException;
 use Tounaf\ExceptionBundle\Exception\ExceptionHandlerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

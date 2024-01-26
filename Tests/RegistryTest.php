@@ -8,31 +8,38 @@ use Tounaf\ExceptionBundle\Exception\ExceptionRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Tounaf\ExceptionBundle\FormatResponse\FormatResponseManager;
 
 class RegistryTest extends KernelTestCase
 {
+    private $registry;
+    private $request;
+
+    public function setUp(): void
+    {
+        $this->registry = new ExceptionRegistry([new CustomHandler()]);
+        $this->registry->setFormatManager(new FormatResponseManager());
+        $this->request = Request::createFromGlobals();
+    }
+    
     public function testRightHandler(): void
     {
-        $request = Request::createFromGlobals();
-        $registry = new ExceptionRegistry([new Custom()]);
         $exception = new MyException();
-        $handler = $registry->getExceptionHandler($exception, $request);
-        $this->assertInstanceOf(Custom::class, $handler);
+        $handler = $this->registry->getExceptionHandler($exception, $this->request);
+        $this->assertInstanceOf(CustomHandler::class, $handler);
     }
 
     public function testWrongHandler(): void
     {
-        $request = Request::createFromGlobals();
-        $registry = new ExceptionRegistry([new Custom()]);
         $exception = new \Exception();
-        $handler = $registry->getExceptionHandler($exception, $request);
-        $this->assertNotInstanceOf(Custom::class, $handler);
+        $handler = $this->registry->getExceptionHandler($exception, $this->request);
+        $this->assertNotInstanceOf(CustomHandler::class, $handler);
     }
 
 }
 
 
-class Custom implements ExceptionHandlerInterface
+class CustomHandler implements ExceptionHandlerInterface
 {
     /**
      * @param  \Exception $exception
