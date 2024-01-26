@@ -6,6 +6,8 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Tounaf\ExceptionBundle\FormatResponse\FormatResponseInterface;
+use Tounaf\ExceptionBundle\FormatResponse\JsonFormatResponse;
 
 class TounafExceptionExtension extends Extension
 {
@@ -15,6 +17,8 @@ class TounafExceptionExtension extends Extension
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $container->setAlias(FormatResponseInterface::class, JsonFormatResponse::class);   
 
         $config = $this->processConfiguration(new Configuration(), $configs);
         
