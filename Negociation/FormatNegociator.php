@@ -9,7 +9,7 @@ class FormatNegociator
 {
     public function __construct(private RequestStack $request)
     {
-        
+
     }
     /**
      * @var array

@@ -7,10 +7,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class JsonFormatResponse implements FormatResponseInterface
 {
-    
     /**
      * @var    array $data
-     * @return 
+     * @return
      */
     public function render(array $data): Response
     {

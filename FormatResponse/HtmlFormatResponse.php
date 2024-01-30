@@ -8,12 +8,12 @@ class HtmlFormatResponse implements FormatResponseInterface
 {
     public function __construct()
     {
-        
+
     }
-    
+
     /**
      * @var    array $data
-     * @return 
+     * @return
      */
     public function render(array $data): Response
     {

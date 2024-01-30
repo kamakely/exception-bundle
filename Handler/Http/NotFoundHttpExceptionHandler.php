@@ -13,17 +13,17 @@ class NotFoundHttpExceptionHandler extends AbstractException implements Exceptio
 {
     public function __construct(private FormatResponseInterface $formatResponseInterface)
     {
-        
+
     }
     public function handleException(\Throwable $throwable): Response
     {
         return $this->formatResponseInterface->render(
             array_merge(
-                array(
+                [
                 'message' => $throwable->getMessage(),
                 'http_message' => 'Not found',
                 'code' => Response::HTTP_NOT_FOUND,
-                ),
+                ],
                 $this->getMessageParts($throwable)
             )
         );

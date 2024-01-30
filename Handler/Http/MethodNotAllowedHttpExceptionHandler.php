@@ -14,18 +14,18 @@ class MethodNotAllowedHttpExceptionHandler extends AbstractException implements 
 {
     public function __construct(private FormatResponseInterface $formatResponseInterface)
     {
-        
+
     }
 
     public function handleException(\Throwable $throwable): Response
     {
         return new JsonResponse(
             array_merge(
-                array(
+                [
                 'message' => $throwable->getMessage(),
                 'http_message' => 'Method Not Allowed',
                 'code' => Response::HTTP_METHOD_NOT_ALLOWED,
-                ),
+                ],
                 $this->getMessageParts($throwable)
             )
         );

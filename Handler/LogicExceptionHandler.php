@@ -21,10 +21,10 @@ class LogicExceptionHandler implements ExceptionHandlerInterface, FormatResponse
     public function handleException(\Throwable $throwable): Response
     {
         return $this->formatResponseInterface->render(
-            array(
+            [
                 'message' => $throwable->getMessage(),
                 'http_message' => 'Logical Exception'
-            )
+            ]
         );
     }
 

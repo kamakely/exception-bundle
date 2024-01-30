@@ -11,10 +11,9 @@ use Tounaf\ExceptionBundle\FormatResponse\FormatResponseInterface;
 
 class AccessDeniedHttpExceptionHandler implements ExceptionHandlerInterface, FormatResponseCheckerInterface
 {
-
     public function __construct(private FormatResponseInterface $formatResponseInterface)
     {
-        
+
     }
     /**
      * @param  \Throwable $throwable
@@ -23,11 +22,11 @@ class AccessDeniedHttpExceptionHandler implements ExceptionHandlerInterface, For
     public function handleException(\Throwable $throwable): Response
     {
         return $this->formatResponseInterface->render(
-            array(
+            [
                 'message' => $throwable->getMessage(),
                 'http_message' => 'Forbidden',
                 'code' => Response::HTTP_FORBIDDEN
-            )
+            ]
         );
     }
 

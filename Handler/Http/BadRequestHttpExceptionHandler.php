@@ -14,18 +14,18 @@ class BadRequestHttpExceptionHandler extends AbstractException implements Except
 {
     public function __construct(private FormatResponseInterface $formatResponseInterface)
     {
-        
+
     }
 
     public function handleException(\Throwable $throwable): Response
     {
         return new JsonResponse(
             array_merge(
-                array(
+                [
                 'message' => $throwable->getMessage(),
                 'http_message' => 'Bad Request',
                 'code' => Response::HTTP_BAD_REQUEST,
-                ),
+                ],
                 $this->getMessageParts($throwable)
             )
         );
