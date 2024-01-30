@@ -14,7 +14,7 @@ class GeneraleExceptionHandler implements ExceptionHandlerInterface, FormatRespo
 {
     public function __construct(private FormatResponseInterface $formatResponseInterface)
     {
-        
+
     }
     /**
      * @param  \Throwable $exception
@@ -23,11 +23,11 @@ class GeneraleExceptionHandler implements ExceptionHandlerInterface, FormatRespo
     public function handleException(\Throwable $throwable): Response
     {
         return new JsonResponse(
-            array(
+            [
             'message' => $throwable->getMessage(),
             'http_message' => 'Internal error',
             'code' => Response::HTTP_INTERNAL_SERVER_ERROR
-            )
+            ]
         );
     }
 

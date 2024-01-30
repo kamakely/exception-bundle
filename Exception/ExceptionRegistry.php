@@ -15,7 +15,7 @@ class ExceptionRegistry
     private $exceptionHandlers;
 
     /**
-     * @var FormatResponseManager 
+     * @var FormatResponseManager
      */
     private $formatResponseManager;
 
@@ -36,7 +36,7 @@ class ExceptionRegistry
     public function getExceptionHandler(\Throwable $throwable, Request $request)
     {
         $formatResponse = $this->formatResponseManager->getFormatHandler($request->getRequestFormat(null));
-        
+
         try {
             foreach($this->exceptionHandlers as $exceptionHandler) {
 
@@ -50,7 +50,7 @@ class ExceptionRegistry
                         $formatResponse = $this->formatResponseManager->getFormatHandler($request->getRequestFormat(null));
                         $exceptionHandler->setFormat($formatResponse);
                     }
-                    
+
                     return $exceptionHandler;
                 }
             }
@@ -60,7 +60,7 @@ class ExceptionRegistry
             return new LogicExceptionHandler($formatResponse);
 
         }
-        
+
         return new GenericExceptionHandler($formatResponse);
     }
 }

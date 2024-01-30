@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpFoundation\ChainRequestMatcher;
+use Symfony\Component\HttpFoundation\RequestMatcher;
 use Symfony\Component\HttpFoundation\RequestMatcher\AttributesRequestMatcher;
 use Symfony\Component\HttpFoundation\RequestMatcher\MethodRequestMatcher;
 use Symfony\Component\HttpFoundation\RequestMatcher\PathRequestMatcher;
@@ -16,7 +17,6 @@ use Symfony\Component\HttpFoundation\RequestMatcherInterface;
 
 class FormatRequestHandlerPass implements CompilerPassInterface
 {
-    
     public function process(ContainerBuilder $container)
     {
         if(!$container->hasDefinition(FormatNegociator::class)) {
@@ -29,7 +29,7 @@ class FormatRequestHandlerPass implements CompilerPassInterface
             "methods" => [],
             "attributes" => []
         ];
-        
+
         $jsonRules = [
             "path" => "/api",
             "format" => "json",
@@ -51,7 +51,7 @@ class FormatRequestHandlerPass implements CompilerPassInterface
             $service = $container->findDefinition($serviceId);
             $manager->addMethodCall('addFormatResponse', [$service]);
         }
-        
+
     }
 
     private function addRule(array $rule, ContainerBuilder $container): void
@@ -71,14 +71,18 @@ class FormatRequestHandlerPass implements CompilerPassInterface
 
     private function createRequestMatcher(ContainerBuilder $container, ?string $path = null, ?string $host = null, ?array $methods = [], array $attributes = []): Reference
     {
-        $pathReferenceMatcher = $this->createReferenceMatcher(new PathRequestMatcher($path), $container, 'path', [$path]);
-        $methodsReferenceMatcher = $this->createReferenceMatcher(new MethodRequestMatcher($methods), $container, 'methods', [$methods]);
-        $attributesReferenceMatcher = $this->createReferenceMatcher(new AttributesRequestMatcher($attributes), $container, 'attributes', [$attributes]);
-   
-        $arguments = [$pathReferenceMatcher, $methodsReferenceMatcher, $attributesReferenceMatcher];
-        
-        return $this->createReferenceMatcher(new ChainRequestMatcher($arguments), $container, 'chain', [$arguments]);
+        if (!class_exists(ChainRequestMatcher::class)) {
+            $arguments = [$path, $host, $methods, $attributes];
+            return $this->createReferenceMatcher(new RequestMatcher($path, $host, $methods, $attributes), $container, 'chain', [$arguments]);
+        } else {
+            $pathReferenceMatcher = $this->createReferenceMatcher(new PathRequestMatcher($path), $container, 'path', [$path]);
+            $methodsReferenceMatcher = $this->createReferenceMatcher(new MethodRequestMatcher($methods), $container, 'methods', [$methods]);
+            $attributesReferenceMatcher = $this->createReferenceMatcher(new AttributesRequestMatcher($attributes), $container, 'attributes', [$attributes]);
 
+            $arguments = [$pathReferenceMatcher, $methodsReferenceMatcher, $attributesReferenceMatcher];
+
+            return $this->createReferenceMatcher(new ChainRequestMatcher($arguments), $container, 'chain', [$arguments]);
+        }
     }
 
     private function createReferenceMatcher(RequestMatcherInterface $requestMatcherInterface, ContainerBuilder $container, string $matchable, array $arguments)

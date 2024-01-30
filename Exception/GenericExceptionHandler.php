@@ -22,11 +22,11 @@ class GenericExceptionHandler implements ExceptionHandlerInterface, FormatRespon
     {
         $messageExeption = $throwable->getMessage();
         return new JsonResponse(
-            array(
+            [
             'message' => $messageExeption,
             'http_message' => 'Erreur interne',
             'code' => Response::HTTP_INTERNAL_SERVER_ERROR
-            )
+            ]
         );
     }
 

@@ -21,7 +21,7 @@ class RegistryTest extends KernelTestCase
         $this->registry->setFormatManager(new FormatResponseManager());
         $this->request = Request::createFromGlobals();
     }
-    
+
     public function testRightHandler(): void
     {
         $exception = new MyException();

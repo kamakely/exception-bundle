@@ -28,7 +28,7 @@ class GeneraleLoggerExceptionHandler implements ExceptionHandlerInterface
         $this->logger->notice(
             sprintf("This notice is provided by tounaf/exception-bundle")
         );
-        
+
         return $this->exceptionHandlerInterface->handleException($throwable);
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace Tounaf\ExceptionBundle;
 
 use Tounaf\ExceptionBundle\DependencyInjection\Compiler\FormatRequestHandlerPass;
@@ -18,7 +19,7 @@ class TounafExceptionBundle extends Bundle
 
         $container->addCompilerPass(new ListenerExceptionPass());
         $container->addCompilerPass(new FormatRequestHandlerPass());
-        
+
         $container->registerForAutoconfiguration(ExceptionHandlerInterface::class)
             ->addTag('tounaf_exception.handler');
         $container->registerForAutoconfiguration(FormatResponseInterface::class)

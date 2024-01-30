@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class FormatResponseManager
 {
-    
     private $formatHandlers = [];
     /**
      * @var Request
@@ -28,10 +27,10 @@ final class FormatResponseManager
                 return $formatHandler;
             }
         }
-        
+
         return new JsonFormatResponse();
     }
-    
+
     public function getFormatHandlers()
     {
         return $this->formatHandlers;

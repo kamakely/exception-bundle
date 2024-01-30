@@ -12,9 +12,9 @@ abstract class AbstractException implements ExceptionHandlerInterface
     protected function getMessageParts(\Exception $exception)
     {
         $message = $exception->getMessage();
-        $customResponse = array(
+        $customResponse = [
             'message' => $message,
-        );
+        ];
         if (strpos($message, '|') !== false) {
             list($title, $message, ) = explode('|', $message);
             $customResponse['message'] = $message;

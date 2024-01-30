@@ -1,14 +1,14 @@
 <?php
 
 namespace Tounaf\ExceptionBundle\FormatResponse;
+
 use Symfony\Component\HttpFoundation\Response;
 
 interface FormatResponseInterface
 {
-    
     /**
      * @var    array $data
-     * @return 
+     * @return
      */
     public function render(array $data): Response;
 
