@@ -19,6 +19,11 @@ class ExceptionRegistry
      */
     private $formatResponseManager;
 
+    /**
+     * @var DecoratorExceptionHandlerInterface[] $decoratorExceptionHandler
+     */
+    private $decoratorExceptionHandlers = [];
+
     public function __construct(iterable $exceptionHandlers)
     {
         $this->exceptionHandlers = $exceptionHandlers;
@@ -29,6 +34,13 @@ class ExceptionRegistry
         $this->formatResponseManager = $formatResponseManager;
     }
 
+    public function addDecorator(DecoratorExceptionHandlerInterface $decoratorExceptionHandler)
+    {
+        $this->decoratorExceptionHandlers [] = $decoratorExceptionHandler;
+    }
+
+
+
     /**
      * @param  \Throwable $throwable
      * @return AbstractException|ExceptionHandlerInterface
@@ -36,7 +48,7 @@ class ExceptionRegistry
     public function getExceptionHandler(\Throwable $throwable, Request $request)
     {
         $formatResponse = $this->formatResponseManager->getFormatHandler($request->getRequestFormat(null));
-
+        $handler = new GenericExceptionHandler($formatResponse);
         try {
             foreach($this->exceptionHandlers as $exceptionHandler) {
 
@@ -51,16 +63,29 @@ class ExceptionRegistry
                         $exceptionHandler->setFormat($formatResponse);
                     }
 
-                    return $exceptionHandler;
+                    $handler = $exceptionHandler;
                 }
             }
 
         } catch(\Exception $exception) {
 
-            return new LogicExceptionHandler($formatResponse);
+            $handler = new LogicExceptionHandler($formatResponse);
 
         }
 
-        return new GenericExceptionHandler($formatResponse);
+        return  $this->decoratesHandler($handler);
+    }
+
+    private function decoratesHandler($handler)
+    {
+        foreach($this->decoratorExceptionHandlers as $decoratorHandler) {
+            /**
+             * @var DecoratorExceptionHandlerInterface $decoratorHandler
+             */
+            $decoratorHandler->decoratesHandler($handler);
+            $handler = $decoratorHandler;
+        }
+
+        return $handler;
     }
 }
