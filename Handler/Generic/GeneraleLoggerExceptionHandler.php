@@ -3,19 +3,22 @@
 namespace Tounaf\ExceptionBundle\Handler\Generic;
 
 use Psr\Log\LoggerInterface;
-use Tounaf\ExceptionBundle\Exception\Exception;
 use Tounaf\ExceptionBundle\Exception\ExceptionHandlerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Tounaf\ExceptionBundle\Exception\DecoratorExceptionHandlerInterface;
 use Tounaf\ExceptionBundle\Exception\TounafException;
 
-class GeneraleLoggerExceptionHandler implements ExceptionHandlerInterface
+class GeneraleLoggerExceptionHandler implements ExceptionHandlerInterface, DecoratorExceptionHandlerInterface
 {
     /**
      * @var LoggerInterface $logger
      */
     private $logger;
 
-    public function __construct(private ExceptionHandlerInterface $exceptionHandlerInterface, LoggerInterface $logger)
+    private ExceptionHandlerInterface $decoratedExceptionHandlerInterface;
+
+    public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
     }
@@ -25,16 +28,29 @@ class GeneraleLoggerExceptionHandler implements ExceptionHandlerInterface
      */
     public function handleException(\Throwable $throwable): Response
     {
-        $this->logger->notice(
-            sprintf("This notice is provided by tounaf/exception-bundle")
-        );
+        if ($throwable instanceof HttpExceptionInterface || $throwable->getStatusCode() >= 500) {
+            $this->logger->critical(
+                $throwable->getMessage(),
+                ['exception' => $throwable]
+            );
+        } else {
+            $this->logger->error(
+                $throwable->getMessage(),
+                ['exception' => $throwable]
+            );
+        }
 
-        return $this->exceptionHandlerInterface->handleException($throwable);
+        return $this->decoratedExceptionHandlerInterface->handleException($throwable);
     }
 
     public function supportsException(\Throwable $throwable): bool
     {
         return $throwable instanceof TounafException;
+    }
+
+    public function decoratesHandler(ExceptionHandlerInterface $decoratedExceptionHandlerInterface): void
+    {
+        $this->decoratedExceptionHandlerInterface = $decoratedExceptionHandlerInterface;
     }
 
 }
