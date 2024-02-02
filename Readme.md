@@ -42,9 +42,9 @@ namespace App\Handler\Exception;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tounaf\ExceptionBundle\ExceptionInterface;
+use Tounaf\ExceptionBundle\ExceptionHandlerInterface;
 
-class MyExceptionHandler implements ExceptionInterface 
+class MyExceptionHandler implements ExceptionHandlerInterface 
 {
     // return an JsonResponse
     public function handleException(\Throwable $throwable): Response
@@ -95,19 +95,48 @@ but the uri
 ```php
 /admin/users/list renders an html page
 ```
-You have the same data but the format of response is different through URI .
-To handle that, the Intefance FormatResponseInterface provides two methods:
+An HandlerException can provide multiple format of response like html, json, etc.  
+By default, this bundle supports html and json for format of response but it is extensible to create custom
+format like json-ld, xml etc.  
+To do that, you need to implement the interface Tounaf\ExceptionBundle\FormatResponse\FormatResponseCheckerInterface.  
+This interface have a method setFormat(FormatResponseInterface $formatResponse) that accepts FormatResponseInterface as argument.
+
 ```php
+<?php
 
-    /**
-     * @var    array $data
-     * @return 
-     */
-    public function render(array $data): Response;
+namespace App\Handler\Exception;
 
-    /**
-     * @var    string $format
-     * @return bool
-     */
-    public function supportsFormat(string $format): bool;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Tounaf\ExceptionBundle\ExceptionHandlerInterface;
+use Tounaf\ExceptionBundle\FormatResponse\FormatResponseCheckerInterface;
+
+class MyExceptionHandler implements ExceptionHandlerInterface, FormatResponseCheckerInterface
+{
+    private FormatResponseInterface $formatResponse;
+
+    // return an JsonResponse
+    public function handleException(\Throwable $throwable): Response
+    {
+        // your logic
+        return $this->formatResponse->render(
+            ['message' => $throwable->getMessage()]
+        )
+    }
+
+    // 
+    public function supportsException(\Throwable $throwable): Response
+    {
+        return $throwable instanceof MyException;
+    }
+
+    public function setFormat(FormatResponseInterface $formatResponse): void
+    {
+        $this->formatResponse = $formatResponse;
+    }
+}
+
 ```
+
+What happen with this code ? As said at the top, this bundle provides two responses by default : html and json. Which of these formats on this code ?
+For the URI that match /api/, the response used is json else html is rendered.
