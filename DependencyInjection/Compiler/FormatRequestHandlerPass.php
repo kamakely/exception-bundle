@@ -31,7 +31,7 @@ class FormatRequestHandlerPass implements CompilerPassInterface
         ];
 
         $jsonRules = [
-            "path" => "/api",
+            "path" => "/api/",
             "format" => "json",
             "host" => "",
             "methods" => [],
@@ -73,7 +73,7 @@ class FormatRequestHandlerPass implements CompilerPassInterface
     {
         if (!class_exists(ChainRequestMatcher::class)) {
             $arguments = [$path, $host, $methods, $attributes];
-            return $this->createReferenceMatcher(new RequestMatcher($path, $host, $methods, $attributes), $container, 'chain', [$arguments]);
+            return $this->createReferenceMatcher(new RequestMatcher($path, $host, $methods, $attributes), $container, 'chain', $arguments);
         } else {
             $pathReferenceMatcher = $this->createReferenceMatcher(new PathRequestMatcher($path), $container, 'path', [$path]);
             $methodsReferenceMatcher = $this->createReferenceMatcher(new MethodRequestMatcher($methods), $container, 'methods', [$methods]);
