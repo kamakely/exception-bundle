@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Tounaf\ExceptionBundle\Exception\DecoratorExceptionHandlerInterface;
 use Tounaf\ExceptionBundle\Exception\TounafException;
 
-class GeneraleLoggerExceptionHandler implements ExceptionHandlerInterface, DecoratorExceptionHandlerInterface
+class GeneraleLoggerExceptionHandler implements DecoratorExceptionHandlerInterface
 {
     /**
      * @var LoggerInterface $logger
