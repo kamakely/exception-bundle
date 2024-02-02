@@ -3,6 +3,7 @@
 namespace Tounaf\ExceptionBundle\Handler\Generic;
 
 use Psr\Log\LoggerInterface;
+use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Tounaf\ExceptionBundle\Exception\ExceptionHandlerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
@@ -28,18 +29,8 @@ class GeneraleLoggerExceptionHandler implements DecoratorExceptionHandlerInterfa
      */
     public function handleException(\Throwable $throwable): Response
     {
-        if ($throwable instanceof HttpExceptionInterface || $throwable->getStatusCode() >= 500) {
-            $this->logger->critical(
-                $throwable->getMessage(),
-                ['exception' => $throwable]
-            );
-        } else {
-            $this->logger->error(
-                $throwable->getMessage(),
-                ['exception' => $throwable]
-            );
-        }
-
+        $e = FlattenException::createFromThrowable($throwable);
+        $this->logException($throwable, sprintf('Uncaught PHP Exception %s: "%s" at %s line %s', $e->getClass(), $e->getMessage(), $e->getFile(), $e->getLine()));
         return $this->decoratedExceptionHandlerInterface->handleException($throwable);
     }
 
@@ -51,6 +42,21 @@ class GeneraleLoggerExceptionHandler implements DecoratorExceptionHandlerInterfa
     public function decoratesHandler(ExceptionHandlerInterface $decoratedExceptionHandlerInterface): void
     {
         $this->decoratedExceptionHandlerInterface = $decoratedExceptionHandlerInterface;
+    }
+
+    protected function logException(\Throwable $exception, $message)
+    {
+        if (!$exception instanceof HttpExceptionInterface) {
+            $this->logger->critical(
+                $message,
+                ['exception' => $exception]
+            );
+        } else {
+            $this->logger->error(
+                $message,
+                ['exception' => $exception]
+            );
+        }
     }
 
 }
