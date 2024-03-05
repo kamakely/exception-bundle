@@ -21,7 +21,7 @@ class GenericExceptionHandler implements ExceptionHandlerInterface, FormatRespon
     public function handleException(\Throwable $throwable): Response
     {
         $messageExeption = $throwable->getMessage();
-        return new JsonResponse(
+        return $this->formatResponseInterface->render(
             [
             'message' => $messageExeption,
             'http_message' => 'Erreur interne',

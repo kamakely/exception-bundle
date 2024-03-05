@@ -4,8 +4,8 @@ namespace Tounaf\ExceptionBundle\Exception;
 
 use Tounaf\ExceptionBundle\FormatResponse\FormatResponseCheckerInterface;
 use Tounaf\ExceptionBundle\FormatResponse\FormatResponseManager;
-use Tounaf\ExceptionBundle\Handler\LogicExceptionHandler;
 use Symfony\Component\HttpFoundation\Request;
+use Tounaf\ExceptionBundle\Handler\LogicalExceptionHandler;
 
 class ExceptionRegistry
 {
@@ -48,7 +48,8 @@ class ExceptionRegistry
     public function getExceptionHandler(\Throwable $throwable, Request $request)
     {
         $formatResponse = $this->formatResponseManager->getFormatHandler($request->getRequestFormat(null));
-        $handler = new GenericExceptionHandler($formatResponse);
+        $handler = new GenericExceptionHandler();
+        $handler->setFormat($formatResponse);
         try {
             foreach($this->exceptionHandlers as $exceptionHandler) {
 
@@ -74,10 +75,10 @@ class ExceptionRegistry
 
         } catch(\Throwable $exception) {
 
-            $handler = new LogicExceptionHandler($formatResponse);
+            $handler = new LogicalExceptionHandler($formatResponse);
 
         }
-
+        
         return  $this->decoratesHandler($handler);
     }
 

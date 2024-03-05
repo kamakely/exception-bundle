@@ -8,7 +8,11 @@ use Tounaf\ExceptionBundle\Exception\ExceptionRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Tounaf\ExceptionBundle\Exception\GenericExceptionHandler;
 use Tounaf\ExceptionBundle\FormatResponse\FormatResponseManager;
+use Tounaf\ExceptionBundle\FormatResponse\HtmlFormatResponse;
+use Tounaf\ExceptionBundle\FormatResponse\JsonFormatResponse;
+use Tounaf\ExceptionBundle\Handler\LogicalExceptionHandler;
 
 class RegistryTest extends KernelTestCase
 {
@@ -17,9 +21,9 @@ class RegistryTest extends KernelTestCase
 
     public function setUp(): void
     {
-        $this->registry = new ExceptionRegistry([new CustomHandler()]);
-        $this->registry->setFormatManager(new FormatResponseManager());
+        $this->registry = $this->configureExceptionRegistry();
         $this->request = Request::createFromGlobals();
+        $this->request->setRequestFormat('json');
     }
 
     public function testRightHandler(): void
@@ -34,6 +38,71 @@ class RegistryTest extends KernelTestCase
         $exception = new \Exception();
         $handler = $this->registry->getExceptionHandler($exception, $this->request);
         $this->assertNotInstanceOf(CustomHandler::class, $handler);
+    }
+
+    public function testBadImplementationHandler(): void
+    {
+        $handler = $this->createBadHandler();
+        $this->assertNotInstanceOf(BadHandler::class, $handler);
+    }
+
+    public function testBadCatchedByLogicalHandler(): void
+    {
+        $handler = $this->createBadHandler();
+        $this->assertInstanceOf(LogicalExceptionHandler::class, $handler);
+    }
+
+    public function testNoConfiguredHandler(): void
+    {
+        $registry = new ExceptionRegistry([]);
+        $registry->setFormatManager(new FormatResponseManager());
+        $handler = $registry->getExceptionHandler(new \Exception(), $this->request);
+        $this->assertInstanceOf(GenericExceptionHandler::class, $handler);
+    }
+
+    public function testResponse(): void
+    {
+        $registry = new ExceptionRegistry([]);
+        $registry->setFormatManager(new FormatResponseManager());
+        $handler = $registry->getExceptionHandler(new \Exception(), $this->request);
+        $response = $handler->handleException(new \Exception());
+        $this->assertInstanceOf(Response::class, $response);
+    }
+
+    public function testJsonResponse(): void
+    {
+        
+        /**
+         * @var Request $request
+         */
+        $request = $this->request;
+        $request->setRequestFormat('json');
+        $handler = $this->registry->getExceptionHandler(new \Exception(), $this->request);
+        $response = $handler->handleException(new \Exception());
+        $this->assertInstanceOf(JsonResponse::class, $response);
+    }
+
+    private function configureExceptionRegistry()
+    {
+        $formatManager = $this->configureFormatManager();
+        $registry = new ExceptionRegistry([new CustomHandler()]);
+        $registry->setFormatManager($formatManager);
+        return $registry;
+    }
+
+    private function configureFormatManager()
+    {
+        $formatManager = new FormatResponseManager();
+        $formatManager->addFormatResponse(new HtmlFormatResponse());
+        $formatManager->addFormatResponse(new JsonFormatResponse());
+        return $formatManager;
+    }
+
+    private function createBadHandler()
+    {
+        $registry = new ExceptionRegistry([new BadHandler()]);
+        $registry->setFormatManager(new FormatResponseManager());
+        return $registry->getExceptionHandler(new \Exception(), $this->request);
     }
 
 }
@@ -61,6 +130,32 @@ class CustomHandler implements ExceptionHandlerInterface
     public function supportsException(\Throwable $exception): bool
     {
         return $exception instanceof MyException;
+
+    }
+}
+
+class BadHandler
+{
+    /**
+     * @param  \Exception $exception
+     * @return array
+     */
+    public function handleException(\Throwable $exception): Response
+    {
+        return new JsonResponse(
+            [
+            "message" => "bad handler",
+            ]
+        );
+    }
+
+    /**
+     * @param  \Exception $exception
+     * @return bool
+     */
+    public function supportsException(\Throwable $exception): bool
+    {
+        return $exception instanceof \Exception;
 
     }
 }
