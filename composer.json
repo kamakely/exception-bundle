@@ -28,6 +28,10 @@
     "require-dev": {
         "symfony/test-pack": "^1.1",
         "symfony/var-dumper": "^6.4 || ^6.3 || ^6.2",
-        "squizlabs/php_codesniffer": "*"
+        "squizlabs/php_codesniffer": "*",
+        "friendsofphp/php-cs-fixer": "^3.39",
+        "enlightn/security-checker": "^1.11",
+        "rector/rector": "^1.0",
+        "symfony/maker-bundle": "^1.48"
     }
 }
