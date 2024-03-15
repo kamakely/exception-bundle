@@ -1,6 +1,6 @@
 If you need to manage complexe exception in your application, this bundle is set for you .
 This bundle provides interface to facilitate the customization of the exception rendering in Symfony project.
-Each exception that you create has his own handler classe. Your exception will be scalable, maintenable, independante.
+Each exception that you create has his own handler classe. Your exception will be scalable, maintenable, independent.
 
 
 ## 1 - Installation 
