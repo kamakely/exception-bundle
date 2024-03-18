@@ -2,7 +2,7 @@
 
 namespace Tounaf\ExceptionBundle\DependencyInjection\Compiler;
 
-use Tounaf\ExceptionBundle\FormatResponse\FormatResponseManager;
+use Tounaf\Exception\FormatResponse\FormatResponseManager;
 use Tounaf\ExceptionBundle\Negociation\FormatNegociator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -44,10 +44,14 @@ class FormatRequestHandlerPass implements CompilerPassInterface
         foreach ($rules as $rule) {
             $this->addRule($rule, $container);
         }
+        
+        if (!$container->hasDefinition(FormatResponseManager::class)) {
+            return;
+        }
 
         $taggedDefinitions = $container->findTaggedServiceIds('tounaf_exception.response');
         $manager = $container->findDefinition(FormatResponseManager::class);
-        foreach($taggedDefinitions as $serviceId => $tagged) {
+        foreach(array_keys($taggedDefinitions) as $serviceId) {
             $service = $container->findDefinition($serviceId);
             $manager->addMethodCall('addFormatResponse', [$service]);
         }
@@ -74,15 +78,14 @@ class FormatRequestHandlerPass implements CompilerPassInterface
         if (!class_exists(ChainRequestMatcher::class)) {
             $arguments = [$path, $host, $methods, $attributes];
             return $this->createReferenceMatcher(new RequestMatcher($path, $host, $methods, $attributes), $container, 'chain', $arguments);
-        } else {
-            $pathReferenceMatcher = $this->createReferenceMatcher(new PathRequestMatcher($path), $container, 'path', [$path]);
-            $methodsReferenceMatcher = $this->createReferenceMatcher(new MethodRequestMatcher($methods), $container, 'methods', [$methods]);
-            $attributesReferenceMatcher = $this->createReferenceMatcher(new AttributesRequestMatcher($attributes), $container, 'attributes', [$attributes]);
-
-            $arguments = [$pathReferenceMatcher, $methodsReferenceMatcher, $attributesReferenceMatcher];
-
-            return $this->createReferenceMatcher(new ChainRequestMatcher($arguments), $container, 'chain', [$arguments]);
         }
+        
+        $pathReferenceMatcher = $this->createReferenceMatcher(new PathRequestMatcher($path), $container, 'path', [$path]);
+        $methodsReferenceMatcher = $this->createReferenceMatcher(new MethodRequestMatcher($methods), $container, 'methods', [$methods]);
+        $attributesReferenceMatcher = $this->createReferenceMatcher(new AttributesRequestMatcher($attributes), $container, 'attributes', [$attributes]);
+        $arguments = [$pathReferenceMatcher, $methodsReferenceMatcher, $attributesReferenceMatcher];
+        
+        return $this->createReferenceMatcher(new ChainRequestMatcher($arguments), $container, 'chain', [$arguments]);
     }
 
     private function createReferenceMatcher(RequestMatcherInterface $requestMatcherInterface, ContainerBuilder $container, string $matchable, array $arguments)

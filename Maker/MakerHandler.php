@@ -15,9 +15,9 @@ use Symfony\Bundle\MakerBundle\DependencyBuilder;
 use Symfony\Bundle\MakerBundle\Util\UseStatementGenerator;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\HttpFoundation\Response;
-use Tounaf\ExceptionBundle\Exception\ExceptionHandlerInterface;
+use Tounaf\Exception\Exception\ExceptionHandlerInterface;
 
-final class HandlerMaker extends AbstractMaker
+final class MakerHandler extends AbstractMaker
 {
     public static function getCommandName(): string
     {
