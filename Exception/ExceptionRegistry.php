@@ -70,10 +70,11 @@ class ExceptionRegistry
                     }
 
                     $handler = $exceptionHandler;
+                    break;
                 }
             }
 
-        } catch(\Throwable $exception) {
+        } catch(\Throwable) {
 
             $handler = new LogicalExceptionHandler($formatResponse);
 
