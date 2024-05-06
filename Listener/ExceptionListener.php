@@ -2,13 +2,13 @@
 
 namespace Tounaf\ExceptionBundle\Listener;
 
-use Tounaf\ExceptionBundle\Exception\ExceptionRegistry;
-use Tounaf\ExceptionBundle\FormatResponse\FormatResponseManager;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Tounaf\Exception\Exception\ExceptionRegistry;
+use Tounaf\Exception\FormatResponse\FormatResponseManager;
 
 class ExceptionListener
 {
-    public function __construct(private ExceptionRegistry $exceptionRegistry, private FormatResponseManager $formatResponseManager, private string $debug)
+    public function __construct(private ExceptionRegistry $exceptionRegistry, private FormatResponseManager $formatResponseManager, private bool $debug)
     {
 
     }

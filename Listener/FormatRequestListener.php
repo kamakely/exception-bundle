@@ -2,8 +2,8 @@
 
 namespace Tounaf\ExceptionBundle\Listener;
 
-use Tounaf\ExceptionBundle\Negociation\FormatNegociator;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Tounaf\Exception\Negociation\FormatNegociator;
 
 class FormatRequestListener
 {

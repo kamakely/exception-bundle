@@ -4,10 +4,11 @@ namespace Tounaf\ExceptionBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Tounaf\ExceptionBundle\FormatResponse\FormatResponseInterface;
-use Tounaf\ExceptionBundle\FormatResponse\JsonFormatResponse;
+use Tounaf\Exception\FormatResponse\FormatResponseInterface;
+use Tounaf\Exception\FormatResponse\JsonFormatResponse;
 
 class TounafExceptionExtension extends Extension
 {
@@ -15,8 +16,12 @@ class TounafExceptionExtension extends Extension
 
     public function load(array $configs, ContainerBuilder $container)
     {
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.yml');
+
+        $loaderPhp = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loaderPhp->load('tounaf_exception.php');
+
+        $loaderXml = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loaderXml->load('services.xml');
 
         $container->setAlias(FormatResponseInterface::class, JsonFormatResponse::class);
 

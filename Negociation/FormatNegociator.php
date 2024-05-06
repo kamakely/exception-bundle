@@ -4,8 +4,9 @@ namespace Tounaf\ExceptionBundle\Negociation;
 
 use Symfony\Component\HttpFoundation\RequestMatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Tounaf\Exception\Negociation\FormatNegociator as NegociationFormatNegociator;
 
-class FormatNegociator
+class FormatNegociator extends NegociationFormatNegociator
 {
     public function __construct(private RequestStack $request)
     {
@@ -39,7 +40,7 @@ class FormatNegociator
     private function getRequest()
     {
         $request = $this->request->getCurrentRequest();
-        if(null === $request) {
+        if(!$request instanceof \Symfony\Component\HttpFoundation\Request) {
             throw new \RuntimeException("There is no current request");
         }
 

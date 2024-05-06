@@ -8,13 +8,16 @@ use Tounaf\ExceptionBundle\DependencyInjection\TounafExceptionExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Tounaf\ExceptionBundle\DependencyInjection\Compiler\DecoratorHandlerPass;
-use Tounaf\ExceptionBundle\Exception\ExceptionHandlerInterface;
-use Tounaf\ExceptionBundle\Exception\DecoratorExceptionHandlerInterface;
-use Tounaf\ExceptionBundle\FormatResponse\FormatResponseInterface;
+use Tounaf\Exception\Exception\ExceptionHandlerInterface;
+use Tounaf\Exception\Exception\DecoratorExceptionHandlerInterface;
+use Tounaf\Exception\FormatResponse\FormatResponseInterface;
 
 class TounafExceptionBundle extends Bundle
 {
-    public function build(ContainerBuilder $container)
+    /**
+     * @return
+     */
+    public function build(ContainerBuilder $container): void
     {
         $container->registerExtension(new TounafExceptionExtension());
         parent::build($container);
