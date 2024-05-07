@@ -71,7 +71,7 @@ class RegistryTest extends KernelTestCase
 
     public function testJsonResponse(): void
     {
-        
+
         /**
          * @var Request $request
          */
@@ -125,7 +125,6 @@ class CustomHandler implements ExceptionHandlerInterface
 
     /**
      * @param  \Exception $exception
-     * @return bool
      */
     public function supportsException(\Throwable $exception): bool
     {
@@ -151,7 +150,6 @@ class BadHandler
 
     /**
      * @param  \Exception $exception
-     * @return bool
      */
     public function supportsException(\Throwable $exception): bool
     {

@@ -38,13 +38,14 @@ class FormatRequestHandlerPass implements CompilerPassInterface
             "attributes" => []
         ];
 
-        $this->addRule($jsonRules, $container);
-        $this->addRule($htmlRules, $container);
         $rules = $container->getParameter('tounaf_exception.format_handlers');
         foreach ($rules as $rule) {
             $this->addRule($rule, $container);
         }
-        
+
+        $this->addRule($jsonRules, $container);
+        $this->addRule($htmlRules, $container);
+
         if (!$container->hasDefinition(FormatResponseManager::class)) {
             return;
         }
@@ -79,12 +80,12 @@ class FormatRequestHandlerPass implements CompilerPassInterface
             $arguments = [$path, $host, $methods, $attributes];
             return $this->createReferenceMatcher(new RequestMatcher($path, $host, $methods, $attributes), $container, 'chain', $arguments);
         }
-        
+
         $pathReferenceMatcher = $this->createReferenceMatcher(new PathRequestMatcher($path), $container, 'path', [$path]);
         $methodsReferenceMatcher = $this->createReferenceMatcher(new MethodRequestMatcher($methods), $container, 'methods', [$methods]);
         $attributesReferenceMatcher = $this->createReferenceMatcher(new AttributesRequestMatcher($attributes), $container, 'attributes', [$attributes]);
         $arguments = [$pathReferenceMatcher, $methodsReferenceMatcher, $attributesReferenceMatcher];
-        
+
         return $this->createReferenceMatcher(new ChainRequestMatcher($arguments), $container, 'chain', [$arguments]);
     }
 
