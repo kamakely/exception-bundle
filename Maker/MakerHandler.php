@@ -42,7 +42,7 @@ final class MakerHandler extends AbstractMaker
         if (null === $exception) {
             $exceptionArgument = $command->getDefinition()->getArgument('exception');
             $exceptionQuestion = new Question(
-                sprintf("%s: [%s]", $exceptionArgument->getDescription(), $handlerClassName), 
+                sprintf("%s: [%s]", $exceptionArgument->getDescription(), $handlerClassName),
                 $handlerClassName.'Exception'
             );
             $exceptionQuestion->setAutocompleterValues([$handlerClassName]);
@@ -66,8 +66,8 @@ final class MakerHandler extends AbstractMaker
                 'Choose a name for your exception class to handle by the handler',
             )
             ->setHelp(file_get_contents(__DIR__.'/../Resources/help/MakeService.txt'))
-            ;
-            $inputConfiguration->setArgumentAsNonInteractive('handler');
+        ;
+        $inputConfiguration->setArgumentAsNonInteractive('handler');
         $inputConfiguration->setArgumentAsNonInteractive('exception');
     }
 
@@ -78,15 +78,15 @@ final class MakerHandler extends AbstractMaker
             'Handler\\Exception\\',
             'Exception'
         );
-        
+
         $generator->generateClass(
-            $exceptionClassNameDetails->getFullName(), 
+            $exceptionClassNameDetails->getFullName(),
             __DIR__.'/../Resources/handler/Exception.tpl.php',
             [
                 'use_statements' => new UseStatementGenerator([Exception::class])
             ]
         );
-        
+
         $handlerClassNameDetails = $generator->createClassNameDetails(
             $input->getArgument('handler'),
             'Handler\\',
@@ -98,7 +98,7 @@ final class MakerHandler extends AbstractMaker
             Response::class,
             $exceptionClassNameDetails->getFullName()
         ]);
-        
+
         $generator->generateClass(
             $handlerClassNameDetails->getFullName(),
             __DIR__.'/../Resources/handler/ExceptionHandler.tpl.php',
@@ -116,7 +116,7 @@ final class MakerHandler extends AbstractMaker
 
     public function configureDependencies(DependencyBuilder $dependencies)
     {
-        
+
     }
 
 }
