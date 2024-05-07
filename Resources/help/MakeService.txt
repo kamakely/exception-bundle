@@ -1,5 +1,5 @@
 The <info>%command.name%</info> command generates a new controller class.
 
-<info>php %command.full_name% CoolStuff CoolStuff</info>
+<info>php %command.full_name% CoolStuff [CoolStuff]</info>
 
 If the argument is missing, the command will ask for the handler and exception class name interactively.

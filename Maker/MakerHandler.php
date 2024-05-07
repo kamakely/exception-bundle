@@ -116,7 +116,6 @@ final class MakerHandler extends AbstractMaker
 
     public function configureDependencies(DependencyBuilder $dependencies)
     {
-
     }
 
 }
