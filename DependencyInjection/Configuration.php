@@ -4,6 +4,7 @@ namespace Tounaf\ExceptionBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Tounaf\Exception\Exception\GenericExceptionHandler;
 
 class Configuration implements ConfigurationInterface
 {
@@ -13,6 +14,7 @@ class Configuration implements ConfigurationInterface
         $treeBuilder->getRootNode()
             ->children()
                 ->booleanNode('debug')->defaultFalse()->end()
+                ->scalarNode('default_handler')->defaultValue(GenericExceptionHandler::class)->end()
                 ->arrayNode('format_handlers')
                     ->arrayPrototype()
                         ->children()
