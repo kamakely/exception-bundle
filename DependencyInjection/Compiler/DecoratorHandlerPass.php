@@ -20,5 +20,6 @@ class DecoratorHandlerPass implements CompilerPassInterface
             $service = $container->findDefinition($serviceId);
             $exceptionRegistryDefinition->addMethodCall('addDecorator', [$service]);
         }
+
     }
 }

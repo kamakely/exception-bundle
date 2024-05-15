@@ -20,7 +20,7 @@ class ExceptionListener
 
         $request = $exceptionEvent->getRequest();
         $exception = $exceptionEvent->getThrowable();
-
+        
         $this->exceptionRegistry->setFormatManager($this->formatResponseManager);
         $handler = $this->exceptionRegistry->getExceptionHandler($exception, $request);
         $response = $handler->handleException($exception);
